@@ -1,17 +1,20 @@
-html, body {
+html,
+body {
     padding: 0;
     margin: 0;
+    height: 100% !important;
 }
 
 body {
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
+    position: relative;
 }
 
 .form-control {
-    border: 1px solid #069d52;
+    border: 1.25px solid #069d52 !important;
     border-radius: 2px;
-    padding: 10px 10px;
+    padding: 20px;
 }
 
 .form-control:focus {
@@ -20,10 +23,18 @@ body {
 }
 
 .hero {
+    position: absolute;
+    width: 100%;
     height: 50vh;
     background: url(../img/hero.jpg) no-repeat;
     background-size: cover;
     background-position: center;
+    z-index: -1;
+}
+
+.main {
+    max-width: 100%;
+    height: 100%;
 }
 
 .container {
@@ -36,40 +47,54 @@ body {
     margin: 0 auto;
 }
 
-.card {
-    height: 75%;
-    margin: 80px auto;
-    -webkit-box-shadow: 0px 3px 50px 3px rgba(0,0,0,0.2);
-    -moz-box-shadow: 0px 3px 50px 3px rgba(0,0,0,0.2);
-    box-shadow: 0px 3px 50px 3px rgba(0,0,0,0.2);
-    border-radius: 10px;
+.logo img {
+    margin: 0 auto;
 }
 
-.card-body {
-    padding: 0;
+.panel {
+    width: 800px;
+    max-width: 100%;
+    height: auto;
+    padding: 80px 100px;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    -webkit-box-shadow: 0px 3px 50px 3px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 3px 50px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 3px 50px 3px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    z-index: 100;
 }
-.wrapper {
-    margin: 63px auto;
-    padding: 0 20px;
+
+.panel-body {
+    padding: 0;
 }
 
 .login-form {
-    margin-top: 30px;
+    margin-top: 60px;
 }
 
 .forget {
     text-align: right;
 }
 
-.forget > a, .back {
+.forget>a,
+.back {
     color: #999999;
 }
 
 .buttons {
-    margin-top: 30px;
+    margin-top: 80px;
 }
 
-.buttons a{
+.buttons-wrapper {
+    width: 100%;
+}
+
+.buttons a {
     line-height: 30px;
 }
 
@@ -79,7 +104,6 @@ body {
     font-size: 15px;
     font-weight: bold;
 }
-
 
 .btn-primary {
     /* width: 150px; */
@@ -93,23 +117,31 @@ body {
     color: #069d52;
 }
 
-.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show>.btn-primary.dropdown-toggle {
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show>.btn-primary.dropdown-toggle {
     background-color: #fac824;
     color: #069d52;
 }
 
-.btn-primary:focus, .btn-primary.focus {
+.btn-primary:focus,
+.btn-primary.focus {
     box-shadow: none;
 }
 
-.btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus, .show>.btn-primary.dropdown-toggle:focus {
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
     box-shadow: none;
 }
 
 .footer {
     height: 40px;
+    width: 100%;
     padding: 10px;
     background: #069d52;
+    position: absolute;
+    bottom: 0;
 }
 
 .footer p {
@@ -120,23 +152,26 @@ body {
 /* Custom checkbox styles */
 
 .custom-control.material-checkbox {
-    color: #069d52;
+    --color: #069d52;
 }
+
 .custom-control.material-checkbox .material-control-input {
     display: none;
 }
-.custom-control.material-checkbox .material-control-input:checked ~ .material-control-indicator {
-    border-color: #069d52;
+
+.custom-control.material-checkbox .material-control-input:checked~.material-control-indicator {
+    border-color: var(--color);
     -webkit-transform: rotateZ(45deg) translate(1px, -5px);
     transform: rotateZ(45deg) translate(1px, -5px);
     width: 10px;
     border-top: 0px solid #fff;
     border-left: 0px solid #fff;
 }
+
 .custom-control.material-checkbox .material-control-indicator {
     display: inline-block;
     position: absolute;
-    top: 4px;
+    top: 2px;
     left: 0;
     width: 16px;
     height: 16px;
@@ -144,45 +179,38 @@ body {
     transition: .3s;
 }
 
+.material-control-description {
+    margin-left: 10px;
+}
 
-@media only screen 
-and (min-device-width: 320px) 
-and (max-device-width: 480px)
-and (-webkit-min-device-pixel-ratio: 2) {
-
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
     .forget {
         text-align: left;
     }
-
     .logo {
         width: 50%;
     }
-
-    .wrapper {
-        margin: 40px auto;
-        padding: 0 25px;
-    }
-
-    .card {
+    .panel {
         min-height: 400px;
+        padding: 20px;
     }
-
     .login-form {
         margin-top: 30px;
     }
-
+    .buttons {
+        margin-top: 40px;
+    }
+    .login {
+        margin-top: 10px;
+    }
 }
 
-@media only screen 
-and (min-device-width: 768px) 
-and (max-device-width: 1024px) 
-and (-webkit-min-device-pixel-ratio: 1) {
-
-    .wrapper {
-        padding: 0 35px;
-    }
-
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
     .col-md-6 {
         max-width: 70%;
+    }
+    .panel {
+        min-height: 400px;
+        padding: 60px;
     }
 }
