@@ -1,0 +1,188 @@
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+}
+
+.form-control {
+    border: 1px solid #069d52;
+    border-radius: 2px;
+    padding: 10px 10px;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #fac824;
+}
+
+.hero {
+    height: 50vh;
+    background: url(../img/hero.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+.logo {
+    width: 35%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.card {
+    height: 75%;
+    margin: 80px auto;
+    -webkit-box-shadow: 0px 3px 50px 3px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px 3px 50px 3px rgba(0,0,0,0.2);
+    box-shadow: 0px 3px 50px 3px rgba(0,0,0,0.2);
+    border-radius: 10px;
+}
+
+.card-body {
+    padding: 0;
+}
+.wrapper {
+    margin: 63px auto;
+    padding: 0 20px;
+}
+
+.login-form {
+    margin-top: 30px;
+}
+
+.forget {
+    text-align: right;
+}
+
+.forget > a, .back {
+    color: #999999;
+}
+
+.buttons {
+    margin-top: 30px;
+}
+
+.buttons a{
+    line-height: 30px;
+}
+
+.btn {
+    border: 0;
+    border-radius: 23px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+
+.btn-primary {
+    /* width: 150px; */
+    width: 100%;
+    height: 40px;
+    background-color: #069d52;
+}
+
+.btn-primary:hover {
+    background-color: #fac824;
+    color: #069d52;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show>.btn-primary.dropdown-toggle {
+    background-color: #fac824;
+    color: #069d52;
+}
+
+.btn-primary:focus, .btn-primary.focus {
+    box-shadow: none;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus, .show>.btn-primary.dropdown-toggle:focus {
+    box-shadow: none;
+}
+
+.footer {
+    height: 40px;
+    padding: 10px;
+    background: #069d52;
+}
+
+.footer p {
+    color: white;
+    margin-bottom: 0;
+}
+
+/* Custom checkbox styles */
+
+.custom-control.material-checkbox {
+    color: #069d52;
+}
+.custom-control.material-checkbox .material-control-input {
+    display: none;
+}
+.custom-control.material-checkbox .material-control-input:checked ~ .material-control-indicator {
+    border-color: #069d52;
+    -webkit-transform: rotateZ(45deg) translate(1px, -5px);
+    transform: rotateZ(45deg) translate(1px, -5px);
+    width: 10px;
+    border-top: 0px solid #fff;
+    border-left: 0px solid #fff;
+}
+.custom-control.material-checkbox .material-control-indicator {
+    display: inline-block;
+    position: absolute;
+    top: 4px;
+    left: 0;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #999999;
+    transition: .3s;
+}
+
+
+@media only screen 
+and (min-device-width: 320px) 
+and (max-device-width: 480px)
+and (-webkit-min-device-pixel-ratio: 2) {
+
+    .forget {
+        text-align: left;
+    }
+
+    .logo {
+        width: 50%;
+    }
+
+    .wrapper {
+        margin: 40px auto;
+        padding: 0 25px;
+    }
+
+    .card {
+        min-height: 400px;
+    }
+
+    .login-form {
+        margin-top: 30px;
+    }
+
+}
+
+@media only screen 
+and (min-device-width: 768px) 
+and (max-device-width: 1024px) 
+and (-webkit-min-device-pixel-ratio: 1) {
+
+    .wrapper {
+        padding: 0 35px;
+    }
+
+    .col-md-6 {
+        max-width: 70%;
+    }
+}

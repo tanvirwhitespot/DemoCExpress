@@ -1,0 +1,263 @@
+<!--.state('app.payment', {url: "/payment", templateUrl: "pages/app/payment.html", controller: 'PaymentCtrl'})-->
+
+<p class="page-bar text-center" id="PAYMENT_201804161006">{{pageHeader}}</p>
+<div ng-show="loading" class="row">
+    <p class="msg-paragraph-emb text-center">Loading...</p>
+</div>
+
+<div ng-include="'pages/app/reload-message.html'"></div>
+
+<div ng-show="!loading" class="input-form">
+    <div class="row gutter-05">
+        <!--Payment Left Panel-->
+        <div class="col-md-7">
+            <!--Client,Code,Status-->
+            <div class="row gutter-05">
+                <p class="msg-paragraph-emb">Client Information</p>
+                <div class="col-md-6 margine-top7">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding width70">Client</span>
+                        <select class="form-control remove-left-border center-dropdown"
+                                ng-model="clientId" ng-change ='changeClient(clientId)'
+                                ng-options="v.NAME for v in clients track by v.ID"></select>
+                        </select>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default align-padding" ng-disabled="busy" ng-click="refressClientList()"> <i class="fa fa-refresh"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-3 margine-top7">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding width70">Code</span>
+                        <input type="text" class="form-control text-center" placeholder="Code" ng-disabled="true" ng-model="clientInfo.CODE">
+                    </div>
+                </div>
+                <div class="col-md-3 margine-top7">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding width70">Status</span>
+                        <input type="text" class="form-control text-center" placeholder="Status" ng-disabled="true" ng-model="clientInfo.STATUS">
+                    </div>
+                </div>
+            </div>
+            <!--Email,Last Payment,Balance-->
+            <div class="row gutter-05">
+                <div class="col-md-5 margine-top7">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding width70">Email</span>
+                        <input type="text" class="form-control text-center" placeholder="Email" ng-disabled="true" ng-model="clientInfo.EMAIL">
+                        <span class="input-group-addon align-padding"></span>
+                    </div>
+                </div>
+                <div class="col-md-4 margine-top7">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding width70">Contact</span>
+                        <input type="text" class="form-control text-center" placeholder="Contact" ng-disabled="true" ng-model="clientInfo.CONTACT">
+                        <span class="input-group-addon align-padding"></span>
+                    </div>
+                </div>
+                <div class="col-md-3 margine-top7">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding width70">Balance</span>
+                        <input type="text" class="form-control text-center" placeholder="Balance" ng-disabled="true" ng-model="clientInfo.BALANCE">
+                    </div>
+                </div>
+            </div>
+            <!--Type,Channel,Amount-->
+            <div class="row gutter-05 margine-top7">
+                <p class="msg-paragraph-emb">Payment & Receive</p>
+                <div class="col-md-5 margine-top7">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding width70">Type</span>
+                        <select class="form-control remove-left-border center-dropdown" ng-model="payment.TYPE">
+                            <option selected>PAYMENT</option>
+                            <option>RECEIVE</option>
+                        </select>
+                        <span class="input-group-addon align-padding"></span>
+                    </div>
+                </div>
+                <div class="col-md-4 margine-top7">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding width70">Channel</span>
+                        <select class="form-control remove-left-border center-dropdown" ng-model="payment.CHANNEL">
+                            <option selected>BANK</option>
+                            <option>MFS</option>
+                            <option>CASH</option>
+                        </select>
+                        <span class="input-group-addon align-padding"></span>
+                    </div>
+                </div>
+                <div class="col-md-3 margine-top7">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding width70">Amount</span>
+                        <input type="number" min="1.00" class="form-control text-center" placeholder="Balance" ng-model="payment.AMOUNT">
+                    </div>
+                </div>
+            </div>
+            <!--Description,Tx.Date-->
+            <div class="row gutter-05">
+                <div class="col-md-5 margine-top7">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding width70">Details</span>
+                        <input type="text" class="form-control text-center" placeholder="Payment Description" ng-model="payment.DETAILS">
+                        <span class="input-group-addon align-padding"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-3 margine-top7">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding width70">Tx. Date</span>
+                        <input type="text" class="form-control text-center" placeholder="Transaction Date" ng-disabled="true" ng-model="output.TX_TIME">
+                    </div>
+                </div>
+                <div class="col-md-4 margine-top7">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding width70">PID</span>
+                        <input type="text" class="form-control text-center" placeholder="Process ID" ng-model="output.PID">
+                        <span class="input-group-btn">
+                            <button class="btn btn-info align-padding" type="button" ng-disabled="!isClientEnable" ng-click="refressClientList()">
+                                <i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!--Remark And Buttons-->
+            <div class="row gutter-05">
+                <div class="col-md-6 margine-top7">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding width70">Remark</span>
+                        <input type="text" class="form-control text-center" placeholder="Payment Remark" ng-model="payment.REMARK">
+                        <span class="input-group-addon align-padding"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xs-12 margine-top7">
+                    <div class="text-center">
+                        <button class="btn btn-warning align-padding width65" type="button" ng-disabled="isClientEnable" ng-click="clear()">
+                            Clear</button>
+                        <button class="btn btn-primary align-padding width65" type="button" ng-disabled="busy" ng-click="submitData()">
+                            Execute</button>
+                        <button class="btn btn-default align-padding width65 default-btn-bdr" type="button" ng-disabled="busy"
+                                ng-click="printInvoice()"><i class="fa fa-print"></i></button>
+                        <button class="btn btn-default align-padding width65 default-btn-bdr" type="button" ng-disabled="busy" 
+                                ng-click="showPrintPreview()"><i class="fa fa-download"></i></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--Payment Histry-->
+        <div class="col-md-5">
+            <div class="row gutter-05">
+                <p class="msg-paragraph-emb">Print Preview</p>
+                <div class="col-md-12 remove-both-margin">
+                    <iframe width="100%" height="200" ng-src="{{printFrame}}" type="application/pdf"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row gutter-05">
+        <p class="msg-paragraph-emb">Company Transaction</p>
+        <div class="col-md-2 col-md-offset-1 margine-top7">
+            <div class="input-group">
+                <span class="input-group-addon align-padding">Order ID</span>
+                <input type="text" class="form-control text-center" placeholder="Search Order" ng-model="orderID">
+                <span class="input-group-btn">
+                    <button class="btn btn-default align-padding" ng-click="generateReport('SEARCH')"> <i class="glyphicon glyphicon-search"></i></button>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6 remove-both-margin margine-top7">
+            <div class="input-group">
+                <span class="input-group-addon align-checkbox-addon" style="padding-top: 4px;border-right: none !important"> 
+                    <input type="checkbox" class="addon-element" ng-model="clientOption" ng-click="enableClient(clientOption)">
+                </span>
+                <span class="input-group-addon align-checkbox-addon remove-left-border"
+                      style="padding: 2px 5px 0px 5px">Client</span>
+                <select class="form-control remove-left-border center-dropdown" ng-disabled="!isClientEnable"
+                        ng-model="clientId" ng-change ='changeClient(clientId)'
+                        ng-options="v.NAME for v in clients track by v.ID"></select>
+                <span class="input-group-btn">
+                    <button class="btn btn-default align-padding" type="button" ng-disabled="!isClientEnable" ng-click="refressClientList()">
+                        <i class="fa fa-refresh"></i></button>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-md-2 margine-top7">
+            <div class="input-group">
+                <span class="input-group-addon align-padding">Date From</span>
+                <input type="text" class="form-control text-center align-padding" uib-datepicker-popup ng-model="dateFrom" is-open="popup1.opened" datepicker-options="dateFromOptions"
+                       ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                    <button class="btn btn-sm btn-default align-padding" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-md-2 margine-top7">
+            <div class="input-group">
+                <span class="input-group-addon align-padding">Date To</span>
+                <input type="text" class="form-control text-center" uib-datepicker-popup ng-model="dateTo" is-open="popup2.opened" datepicker-options="dateToOptions"
+                       ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                    <button class="btn btn-sm btn-default align-padding" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-md-1 col-sm-1 width50 margine-top7">
+            <span class="input-group-btn">
+                <button class="btn btn-default align-padding width40" type="button" ng-click="generateReport('DATE')"><i class="fa fa-download"></i></button>
+            </span>
+            <span class="input-group-btn">
+                <button class="btn btn-default align-padding width40" type="button" ng-click="printTxReport()"><i class="fa fa-print"></i></button>
+            </span>
+        </div>
+    </div><!--Report Row-->
+
+    <!--General Table-->
+    <div class="row gutter-05">
+        <div class="fixed-head-table-frame">
+            <div class="fixed-head" style="max-height: 30vh">
+                <table class="fixed-head-columns table-hover">
+                    <thead fix-head>
+                        <tr>
+                            <!--<th><i class="fa fa-times" aria-hidden="true" ng-click="clearAccountTable()"></i></th>-->
+                            <th>PARTICULAR</th>
+                            <th ng-if="!isClientEnable">CLIENT NAME</th>
+                            <th>CHARGE PAID</th>
+                            <th>TX DATE TIME</th>
+                            <th>DESCRIPTION</th>
+                            <th>PAYMENT</th>
+                            <th>SERVICE CHARGE</th>
+                            <th>COD</th>
+                            <th>ADJUSTMENT</th>
+                            <th>BALANCE</th>
+                            <th>REMARK</th>
+                            <th>TX USER</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="record in transaction">
+                            <!--<td><i class="fa fa-check" aria-hidden="true" ng-click="addForPayment(record)"></i></td>-->
+                            <td ng-click="addForPayment(record)" style="cursor: pointer">{{record.PARTICULAR}}</td>
+                            <td ng-if="!isClientEnable">{{record.CLIENT_NAME}}</td>
+                            <td>{{record.SC_PAID}}</td>
+                            <td>{{record.T_DATE}}</td>
+                            <td>{{record.DESCRIPTION}}</td>
+                            <td>{{record.PAYMENT| number : 2}}</td>
+                            <td>{{record.SC| number : 2}}</td>
+                            <td>{{record.COD| number : 2}}</td>
+                            <td>{{record.ADJUSTMENT| number : 2}}</td>
+                            <td class="btn-info" style="text-align: right">{{record.BALANCE| number : 2}}</td>
+                            <td>{{record.REMARK}}</td>
+                            <td>{{record.USER_NAME}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

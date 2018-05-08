@@ -1,0 +1,148 @@
+<p class="page-bar text-center">{{pageHeader}}</p>
+<div ng-if="loading" class="row">
+    <p class="msg-paragraph-emb text-center">Loading...</p>
+</div>
+
+
+<!--<div modal="showModal" close="cancel()">
+    <div class="modal-header">
+        <h4>Modal Dialog</h4>
+    </div>
+    <div class="modal-body">
+        <p>Example paragraph with some text.</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="ok()">Okay</button>
+        <button class="btn" ng-click="cancel()">Cancel</button>
+    </div>
+</div>-->
+
+
+<div ng-show="!loading" class="create-location input-form">
+    <div class="row">
+        <div class="col-md-6" >
+            <div class="row gutter-05">
+                <p class="msg-paragraph-emb">User Information</p>
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>ID</label>
+                    <label class="error-msg">{{userErrorMsg.ID}}</label>
+                    <p class="input-group">
+                        <input type="number" min="0" class="form-control" placeholder="Auto" ng-model="userData.ID" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-sm btn-primary align-padding" ng-click="findUser()">Find User</button>
+                        </span>
+                    </p>
+                </div>
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>Name</label>
+                    <label class="error-msg">{{userErrorMsg.NAME}}</label>
+                    <input class="form-control" placeholder="Name of the User" ng-model="userData.NAME">
+                </div>
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>Status</label>
+                    <label class="error-msg">{{userErrorMsg.STATUS}}</label>
+                    <select class="form-control" ng-model="userData.STATUS">
+                        <option selected>Active</option>
+                        <option>Deactive</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row gutter-05">
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>Email</label>
+                    <label class="error-msg">{{userErrorMsg.EMAIL}}</label>
+                    <input class="form-control" type="email" placeholder="Email ID" ng-model="userData.EMAIL">
+                </div>
+                <div class="form-group col-sm-8 col-md-8 remove-both-margin">
+                    <label>Address</label>
+                    <label class="error-msg">{{userErrorMsg.ADDRESS}}</label>
+                    <input class="form-control" placeholder="User Address" ng-model="userData.ADDRESS">
+                </div>
+            </div>
+
+            <div class="row gutter-05">
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>Contact No</label>
+                    <label class="error-msg">{{userErrorMsg.CONTACT}}</label>
+                    <input class="form-control" placeholder="Contact Number" ng-model="userData.CONTACT">
+                </div>
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>Type</label>
+                    <label class="error-msg">{{userErrorMsg.TYPE}}</label>
+                    <select class="form-control" ng-model="typeCB" 
+                            ng-options="v.NAME for v in type track by v.ID">
+                    </select>
+                </div>
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>Password</label>
+                    <label class="error-msg">{{userErrorMsg.PASSWORD}}</label>
+                    <input type="password" value="" class="form-control" placeholder="Password" ng-model="userData.PASSWORD">
+                </div>
+            </div>
+
+            <div class="row gutter-05">
+                <div class="form-group col-sm-6 col-md-6 remove-both-margin">
+                    <label>Create Info</label>
+                    <input class="form-control" placeholder="Create Information" readonly="true" ng-model="userData.CREATE_INFO">
+                </div>
+                <div class="form-group col-sm-6 col-md-6 remove-both-margin">
+                    <label>Update Info</label>
+                    <input class="form-control" placeholder="Update Information" readonly="true" ng-model="userData.UPDATE_INFO">
+                </div>
+            </div>
+
+            <div class="row text-center form-grp-btns gutter-05">
+                <button type="button" class="btn btn-default btn-sm" ng-click="createUser()" ng-disabled="busyUser">Create</button>
+                <button type="button" class="btn btn-default btn-sm" ng-click="updateUser()" ng-disabled="busyUser">Update</button>
+                <button type="button" class="btn btn-default btn-sm" ng-click="clearUser('init')" ng-disabled="busyUser">Clear</button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row gutter-05">
+                <p class="msg-paragraph-emb">User List</p>
+                <div class="fixed-head-table-frame">
+                    <div class="fixed-head set-max-height-175">
+                        <table class="fixed-head-columns">
+                            <thead fix-head>
+                                <tr>
+                                    <th><i class="fa fa-search" aria-hidden="true"></i></th>
+                                    <!--<th>SL</th>-->
+                                    <th>ID</th>
+                                    <th>NAME</th>
+                                    <th>STATUS</th>
+                                    <th>EMAIL</th>
+                                    <th>ADDRESS</th>
+                                    <th>CONTACT</th>
+                                    <th>TYPE</th>
+                                    <th>CREATE INFO</th>
+                                    <th>UPDATE INFO</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="user in users" ng-click="selectUserRow($index + 1)">
+                                    <td class="min-width-28"><i class="fa fa-eye" aria-hidden="true" ng-click="viewUser(user.ID)"></i></td>
+                                    <!--<td>{{$index + 1}}</td>-->
+                                    <td>{{user.ID}}</td>
+                                    <td>{{user.NAME}}</td>
+                                    <td class="min-width-60">{{user.STATUS}}</td>
+                                    <td>{{user.EMAIL}}</td>
+                                    <td>{{user.ADDRESS}}</td>
+                                    <td>{{user.CONTACT}}</td>
+                                    <td class="min-width-60">{{user.TYPE}}</td>
+                                    <td>{{user.CREATE_INFO}}</td>
+                                    <td>{{user.UPDATE_INFO}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row text-center form-grp-btns gutter-05">
+                <button type="button" class="btn btn-default btn-sm" ng-disabled="busyUser" ng-click="listUsers()">List Users</button>
+                <button type="button" class="btn btn-default btn-sm" ng-disabled="busyUser" ng-click="clearUsersList()">Clear</button>
+                <button type="button" class="btn btn-default btn-sm" ng-disabled="busyUser" ng-click="printUsersList()">Print</button>
+            </div>
+        </div>
+    </div>
+</div>

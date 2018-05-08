@@ -1,0 +1,173 @@
+<p class="page-bar text-center" id="ACC_COL_201804021350">{{pageHeader}}</p>
+<div ng-show="loading" class="row">
+    <p class="msg-paragraph-emb text-center">Loading...</p>
+</div>
+
+<div ng-include="'pages/app/reload-message.html'"></div>
+
+<div ng-show ="!loading" class="input-form">
+    <div class="row gutter-05">
+        <div class="col-md-9">
+            <div class="row gutter-05">
+                <p class="msg-paragraph-emb">Your Orders</p>
+                <!--Driver List-->
+                <div class="col-md-3 col-sm-6 remove-both-margin margine-top7">
+                    <div class="input-group">
+                        <span class="input-group-addon align-checkbox-addon" style="padding-top: 4px;border-right: none !important"> 
+                            <input type="checkbox" class="addon-element" ng-model="driverOption" ng-click="enableDriver(driverOption)">
+                        </span>
+                        <span class="input-group-addon align-checkbox-addon remove-left-border"
+                              style="padding: 2px 5px 0px 5px">Driver</span>
+                        <select class="form-control remove-left-border" ng-disabled="!isDriverEnable"
+                                ng-model="driverId" ng-change ='changeDriver(driverId)'
+                                ng-options="v.NAME for v in dlv track by v.ID"></select>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default align-padding" type="button" ng-disabled="!isDriverEnable" ng-click="generateReport('DRIVER')">
+                                <i class="fa fa-download"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <!--Search-->
+                <div class="col-md-3 col-sm-6 remove-both-margin margine-top7">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding">Search</span>
+                        <input type="text" class="form-control" placeholder="Order Id" ng-disabled="isDriverEnable" ng-model="orderID">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default align-padding" type="button" ng-disabled="isDriverEnable" ng-click="generateReport('SEARCH')">
+                                <i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <!--Date From-->
+                <div class="col-md-3 col-sm-6 margine-top7">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding">Date From</span>
+                        <input type="text" readonly="true" class="form-control text-center" uib-datepicker-popup ng-model="dt1" is-open="viewPopup.popup1" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default align-padding" ng-click="open(1)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <!--Date To-->
+                <div class="col-md-3 col-sm-6 margine-top7">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding">Date To</span>
+                        <input type="text" readonly="true" class="form-control text-center" uib-datepicker-popup ng-model="dt2" is-open="viewPopup.popup2" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default align-padding" ng-click="open(2)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            <button class="btn btn-default align-padding" type="button" ng-disabled="isDriverEnable" ng-click="generateReport('DATE')">
+                                <i class="fa fa-download"></i></button>
+                        </span>
+                        <!--                        <span class="input-group-btn">
+                                                    <button class="btn btn-default align-padding" type="button" ng-disabled="isDriverEnable" ng-click="generateReport('DATE')">
+                                                        <i class="fa fa-download"></i></button>
+                                                </span>-->
+                    </div>
+                </div>
+                <!--                                <div class="col-md-1 col-sm-1 margine-top7">
+                                                    <button class="btn btn-default align-padding" type="button" ng-disabled="isDriverEnable" ng-click="generateReport('DATE')">
+                                                        <i class="fa fa-download"></i></button>
+                                                </div>-->
+            </div>
+            <!--            <button class="btn btn-default align-padding" type="button" ng-disabled="isDriverEnable" ng-click="generateReport('DATE')">
+                            <i class="fa fa-download"></i></button>-->
+            <div class="row gutter-05">
+                <div class="fixed-head-table-frame">
+                    <div class="fixed-head" style="max-height: 68vh">
+                        <table class="fixed-head-columns table-hover">
+                            <thead fix-head>
+                                <tr>
+                                    <th><i class="fa fa-times" aria-hidden="true" ng-click="clearAccountTable()"></i></th>
+                                    <th>ORDER ID</th>
+                                    <!--<th>STATUS</th>-->
+                                    <th>TX ID</th>
+                                    <th>ORDER BY </th>
+                                    <th>PAID BY</th>
+                                    <th>DROP DATE</th>
+                                    <!--<th>PICKER NAME</th>-->
+                                    <th ng-if="!isDriverEnable">DRIVER NAME</th>
+                                    <th>CHARGE</th>
+                                    <!--<th>WEIGHT</th>-->
+                                    <!--<th>QTY</th>-->
+                                    <th>FACE VALUE</th>
+                                    <th>COD AMOUNT</th>
+                                    <th>OTHER AMOUNT</th>
+                                    <th>RETURN COD</th>
+                                    <th>REJECT</th>
+                                    <th>COLLECTION</th>
+                                    <th>TOTAL PAYABLE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="record in orders">
+                                    <td><i class="fa fa-check" aria-hidden="true" ng-click="addForPayment(record)"></i></td>
+                                    <td ng-click="addForPayment(record)" style="cursor: pointer" ng-class="{'btn-danger': record.REJECT > 0}">{{record.ORDER_ID}}</td>
+                                    <!--<td>{{record.ORDER_STS}}</td>-->
+                                    <td>{{record.TX_ID}}</td>
+                                    <td>{{record.USER_ID}}</td>
+                                    <td>{{record.PAID_BY}}</td>
+                                    <td>{{record.DROP_DATE}}</td>
+                                    <!--<td>{{record.PICKER_NAME}}</td>-->
+                                    <td ng-if="!isDriverEnable">{{record.DROPER_NAME}}</td>
+                                    <td class="btn-info">{{record.SERVICE_CHARGE| number : 2}}</td>
+                                    <!--<td>{{record.WEIGHT}}</td>-->
+                                    <!--<td>{{record.QTY}}</td>-->
+                                    <td>{{record.FACE_VALUE | number : 2}}</td>
+                                    <td>{{record.COD | number : 2}}</td>
+                                    <td>{{record.NON_COD | number : 2}}</td>
+                                    <td>{{record.COD_RTN | number : 2}}</td>
+                                    <td>{{record.REJECT | number : 0}}</td>
+                                    <td class="btn-info">{{record.COD_DRP| number : 2}}</td>
+                                    <td class="btn-primary">{{record.TOTAL| number : 2}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="row gutter-05">
+                <p class="msg-paragraph-emb">Selected Orders</p>
+                <div class="col-md-7 col-sm-8 remove-both-margin margine-top7">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding"><i class="fa fa-user"></i></span>
+                        <input type="text" class="form-control" ng-disabled="true" ng-model="driver">
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-4 remove-both-margin margine-top7">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding"><i class="fa fa-money"></i></span>
+                        <input type="text" class="form-control text-center bg-primary" ng-disabled="true" ng-model="amount">
+                    </div>
+                </div>
+            </div>
+            <div class="row gutter-05">
+                <div class="fixed-head-table-frame">
+                    <div class="fixed-head" style="max-height: 62.8vh">
+                        <table class="fixed-head-columns table-hover">
+                            <thead fix-head>
+                                <tr>
+                                    <th><i class="fa fa-times" aria-hidden="true" ng-click="clearSelectedTable()"></i></th>
+                                    <th>ORDER ID</th>
+                                    <th>PAYABLE</th>
+                                    <th>STATUS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="record in selectedForPayment">
+                                    <td><i class="fa fa-times" aria-hidden="true" ng-click="removeSelectedItem($index)"></i></td>
+                                    <td>{{record.ORDER_ID}}</td>
+                                    <td class="btn-primary">{{record.TOTAL| number : 2}}</td>
+                                    <td>{{record.STS}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-default btn-info" type="button" style="width: 100%" ng-click="submitData()">SUBMIT</button>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,62 @@
+/* 
+    Created on : Jan 24, 2018, 12:46:30 PM
+    Author     : gsalim
+*/
+
+.modal-header{
+    /*background-color: $msg-paragraph-bg;*/
+    color: $page-bar-font-color;
+}
+.modal-body{
+    h4,p{
+        font-weight: 300;
+    }
+}
+.modal-footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    button{
+        width: 100px;
+    }
+}
+
+.modal-dialog {
+    /*    margin-top: 0;
+        margin-bottom: 0;
+        height: 100vh;
+        width: 50vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;*/
+
+    $width: 478px;
+    $padding: 10px;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    width: $width;
+    padding: $padding;
+    border-radius: 5px;
+    text-align: center;
+
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin-left: -($width/2 + $padding);
+    margin-top: -110px;
+
+    @media all and (max-width: 540px) {
+        width: auto;
+        margin-left: 0;
+        margin-right: 0;
+        left: 5px;
+        right: 5px;
+    }
+}
+
+.modal.fade .modal-dialog {
+    transform: translate(0, -20%);
+}
+
+.modal.in .modal-dialog {
+    transform: translate(0, 0);
+}

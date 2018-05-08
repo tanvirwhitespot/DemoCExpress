@@ -1,0 +1,77 @@
+<div class="login manage-user">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <h3 class="panel-title">Please Provide Your Information</h3>
+                </div>
+                <div class="panel-body">
+                    <fieldset>
+
+                        <div ng-show="!inputView" class="form-submit">
+
+                            <div class="form-group">
+                                <label >User Name</label><p>{{user}}</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label >Email Address</label> <p>{{email}}</p>
+                            </div>
+                            <div class="form-group">
+                                <label >Address</label> <p>{{address}}</p>
+                            </div>
+                            <div class="form-group">
+                                <label>Mobile Number</label>
+                                <!--<input readonly class="form-control"  ng-model="mobile">-->
+                                <p>{{mobile}}</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label >Password</label>
+                                <!--<input readonly class="form-control" value="Hidden">-->
+                                <p>Hidden</p>
+                            </div>
+
+                            <!--                            <div class="input-group input-group-sm">
+                                                            <span class="input-group-addon">User Name</span>
+                                                            <input readonly class="form-control" ng-model="user">
+                                                        </div>
+                            
+                                                        <div class="input-group input-group-sm">
+                                                            <span class="input-group-addon">Email Address</span>
+                                                            <input readonly class="form-control" ng-model="email">
+                                                        </div>
+                            
+                                                        <div class="input-group input-group-sm">
+                                                            <span class="input-group-addon">Mobile Number</span>
+                                                            <input readonly class="form-control" ng-model="mobile">
+                                                        </div>
+                            
+                                                        <div class="input-group input-group-sm">
+                                                            <span class="input-group-addon">Password</span>
+                                                            <input readonly class="form-control" value="Hidden">
+                                                        </div>-->
+                            <button ng-click = "register()" class="btn btn-default">Submit</button>
+                            <button ng-click = "inputView = !inputView;loginMsg = 'Press Next to Preview'" class="btn btn-default">Edit</button>
+                        </div>
+
+                        <div ng-show="inputView">
+                            <input class="form-control" placeholder="User Name" ng-disabled="busy" ng-model="user" type="text" autofocus>
+                            <input class="form-control" placeholder="Email Address" ng-disabled="busy" ng-model="email" type="email">
+                            <input class="form-control" placeholder="Address" ng-disabled="busy" ng-model="address" type="text">
+                            <input class="form-control" placeholder="Mobile Numbar" ng-disabled="busy" ng-model="mobile" type="number">
+                            <input class="form-control" placeholder="Password" ng-disabled="busy" ng-model="pass" type="password" value="">
+                            <input class="form-control" placeholder="Confirm Password" ng-disabled="busy" ng-model="confirmPass" type="password" value="">
+
+                            <button ng-disabled="busy" ng-click = "inputView = !inputView; loginMsg = 'Press Submit to Confirm'" class="btn btn-default">Next</button>
+                            <button ng-disabled="busy" ng-click = "backToLogin()" class="btn btn-default">Login</button>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="panel-footer panel-primary text-center">
+                    <h5><small>{{loginMsg}}</small></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

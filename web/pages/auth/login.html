@@ -1,0 +1,78 @@
+<div class="hero">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel login-panel">
+                <div class="panel-heading text-center">
+                    <img class="logo" src="img/logo.png" alt="logo">
+                </div>
+                <!--Panel Body-->
+                <div class="panel-body">
+                    <form class="login-form">
+                        <!--User Name-->
+                        <div class="form-group">
+                            <label for="email">User Name or Email Address</label>
+                            <input type="email" class="form-control square-border" ng-disabled="busy" ng-model="user" placeholder="email@example.com" required autofocus="true">
+                        </div>
+                        <!--Password-->
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control square-border" ng-disabled="busy" ng-model="pass" placeholder="Enter password" required>
+                        </div>
+                        <!--Check Box-->
+<!--                        <div class="form-group">
+                            <div class="row" style="margin-left: 0">
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <label class="custom-control material-checkbox">
+                                        <input type="checkbox" class="material-control-input">
+                                        <span class="material-control-indicator"></span>
+                                        <span class="material-control-description">Remember Me</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+                                    <a  class="forget-font text-right" href="#">Forgot Password?</a>
+                                </div>
+                            </div>
+                        </div>-->
+                        <!--Buttons-->
+                        <div class="buttons text-center">
+                            <div class="form-group col-md-12 col-xs-12">
+                                <button class="btn-primary l-btn" type="submit" ng-disabled="busy" ng-click = "login()" class="btn btn-primary">Log in</button>
+                            </div>
+<!--                            <div class="form-group col-md-6 col-xs-6">
+                                <button class="btn-primary l-btn" ng-disabled="true" ng-click = "signUp()" class="btn btn-default">Sign Up</button>
+                            </div>-->
+                            <h5 class="text-center"><small>{{loginMsg}}</small></h5>
+                        </div>
+                        <!--<div class="form-group col-md-12">-->
+
+                        <!--</div>-->
+                    </form>
+                </div><!--End Panel Body-->
+            </div><!--End Panel-->
+        </div><!--End col-md-8-->
+    </div><!--End row-->
+</div><!--End Hero-->
+
+<!--<div ng-include="'pages/app/footer.html'"></div>-->
+
+<!--            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Login To Enter System</h3>
+                </div>
+                <div class="panel-body">
+                    <fieldset>
+                        <form role="form">
+                            <input class="form-control" placeholder="User ID / Email" ng-disabled="busy" ng-model="user" type="text" autofocus>
+                            <input class="form-control" placeholder="Password" ng-disabled="busy" ng-model="pass" type="password" value="">
+
+                            <div class="flex-container">
+                                <button ng-disabled="busy" ng-click = "login()" type="submit" class="btn btn-default">Login</button>
+                                <button ng-disabled="busy" ng-click = "signUp()" class="btn btn-default">Sign Up</button>
+                            </div>
+                        </form>
+                    </fieldset>
+                </div>
+                <div class="panel-footer panel-primary">
+                    <h5><small>{{loginMsg}}</small></h5>
+                </div>
+            </div>-->

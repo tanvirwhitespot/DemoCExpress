@@ -1,0 +1,280 @@
+<!-- 'manage-order'|'/manage-order'|'pages/app/manage-order.html'|'ManageOrderCtrl' -->
+<p class="page-bar text-center margine-bottom0">{{pageHeader}}</p>
+<div ng-if="loading" class="row">
+    <p class="msg-paragraph-emb text-center">Loading...</p>
+</div>
+<div ng-show="!loading" class="input-form">
+    <div class="row gutter-05">
+
+        <div class="col-md-2 col-md-offset-1 margine-top7">
+            <div class="input-group">
+                <span class="input-group-addon align-padding">Order ID</span>
+                <input type="text" class="form-control" placeholder="Search Order" ng-model="orderID">
+                <span class="input-group-btn">
+                    <button class="btn btn-default align-padding" ng-click="findOrder()"> <i class="glyphicon glyphicon-search"></i></button>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-md-2 margine-top7">
+            <div class="input-group">
+                <span class="input-group-addon align-padding">Date Type</span>
+                <select class="form-control remove-left-border center-dropdown" ng-model="dateFilter">
+                    <option selected>Order Date</option>
+                    <option>Pick Date</option>
+                    <option>Drop Date</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-2 margine-top7">
+            <div class="input-group">
+                <span class="input-group-addon align-padding">Date From</span>
+                <input type="text" class="form-control text-center align-padding" uib-datepicker-popup ng-model="dateFrom" is-open="popup1.opened" datepicker-options="dateFromOptions"
+                       ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                    <button class="btn btn-sm btn-default align-padding" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-md-2 margine-top7">
+            <div class="input-group">
+                <span class="input-group-addon align-padding">Date To</span>
+                <input type="text" class="form-control text-center" uib-datepicker-popup ng-model="dateTo" is-open="popup2.opened" datepicker-options="dateToOptions"
+                       ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                    <button class="btn btn-sm btn-default align-padding" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-md-2 margine-top7">
+            <div class="input-group">
+                <span class="input-group-addon align-padding">Status</span>
+                <select class="form-control remove-left-border center-dropdown" ng-model="statusFilter">
+                    <option selected>ALL</option>
+                    <option>ORDER</option>
+                    <option>PICKED</option>
+                    <option>WRH</option>
+                    <option>PTD</option>
+                    <option>DROPPED</option>
+                </select>
+                <span class="input-group-btn">
+                    <button class="btn btn-default align-padding" type="button" ng-click="generateReport()"><i class="fa fa-download"></i></button>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-md-1 margine-top7">
+            <button class="btn btn-default align-padding width40" type="button" ng-click="printReport()"><i class="fa fa-print"></i></button>
+        </div>
+
+    </div>
+    <!--General Table-->
+    <div class="row gutter-05">
+        <div class="fixed-head-table-frame">
+            <div class="fixed-head set-max-height-175">
+                <table class="fixed-head-columns table-hover">
+                    <thead fix-head>
+                        <tr>
+                            <!--<th>#</th>-->
+                            <th><i class="fa fa-times" aria-hidden="true" ng-click="removeAll()"></i></th>
+                            <th>SL</th>
+                            <!--<th>ID</th>-->
+                            <th>ORDER ID</th>
+                            <!--<th>USER ID</th>-->
+                            <th>ORDER BY</th>
+                            <th>PAID BY</th>
+                            <th>PAYMENT</th>
+                            <th>DELIVERY</th>
+                            <th>CHARGE</th>
+                            <th>ORDER TIME</th>
+                            <th>PICK DATE</th>
+                            <th>PICK TIME</th>
+                            <th>PICKER</th>
+                            <th>STATUS</th>
+                            <th>DROPER</th>
+                            <th>DROP DATE</th>
+                            <th>DROP TIME</th>
+                            <th>RCVR NAME</th>
+                            <th>RCVR MOBILE</th>
+                            <th>RCVR ADDRESS</th>
+                            <!--<th>DROP ADDRESS</th>-->
+                            <!--<th>ORDER BY</th>-->
+                            <!--<th>ORDER ID</th>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="record in orders"  ng-class="getOrderCSS(record.STS)">
+                            <td><i class="fa fa-eye" aria-hidden="true" ng-click="viewOrder(record.ORDER_ID)"></i></td>
+                            <td>{{$index + 1}}</td>
+                            <!--<td>{{record.AUTO_ID}}</td>-->
+                            <td ng-click="viewOrder(record.ORDER_ID)" style="cursor: pointer">{{record.ORDER_ID}}</td>
+                            <!--<td>{{record.USER_ID}}</td>-->
+                            <td>{{record.CREATE_BY}}</td>
+                            <td>{{record.PAID_BY}}</td>
+                            <td>{{record.PMT_TYPE}}</td>
+                            <td>{{record.DLV_TYPE}}</td>
+                            <td>{{record.SERVICE_CHARGE}}</td>
+                            <td>{{record.CREATE_DATE}}</td>
+                            <td>{{record.PICK_DATE}}</td>
+                            <td>{{record.PICK_TIME}}</td>
+                            <td>{{record.PICKER}}</td>
+                            <td>{{record.STS}}</td>
+                            <td>{{record.DROPER}}</td>
+                            <td>{{record.DROP_DATE}}</td>
+                            <td>{{record.DROP_TIME}}</td>
+                            <td>{{record.RCVR_NAME}}</td>
+                            <td>{{record.RCVR_MOBILE}}</td>
+                            <td>{{record.RCVR_ADDRESS}}</td>
+                            <!--<td>{{record.DROP_ADDRESS}}</td>-->
+                            <!--<td>{{record.CREATE_BY}}</td>-->
+                            <!--<td>{{record.ORDER_ID}}</td>-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--Sub Items-->
+    <div class="row gutter-05">
+        <div class="col-md-6">
+            <div class="row gutter-05">
+                <p class="msg-paragraph-emb">Order Items</p>
+                <div class="fixed-head-table-frame">
+                    <div class="fixed-head set-max-height-175">
+                        <table class="fixed-head-columns">
+                            <thead fix-head>
+                                <tr>
+                                    <th>SEQ</th>
+                                    <th>PICK ADDRESS</th>
+                                    <th>ITEM NAME</th>
+                                    <th>SERIAL</th>
+                                    <th>QTY</th>
+                                    <th>WEIGHT</th>
+                                    <th>SIZE</th>
+                                    <th>COD</th>
+                                    <th>CO</th>
+                                    <th>STATUS</th>
+                                    <th>NOTE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="record in items" ng-class="{'reject': record.STS === 'REJECTED'}">
+                                    <td>{{record.SEQ}}</td>
+                                    <td>{{record.PICK_ADDR}}</td>
+                                    <td>{{record.ITEM_NAME}}</td>
+                                    <td>{{record.SERIAL_NO}}</td>
+                                    <td>{{record.QTY}}</td>
+                                    <td>{{record.WEIGHT}}</td>
+                                    <td>{{record.SIZE}}</td>
+                                    <td>{{record.FACE_VALUE| number : 2}}</td>
+                                    <td>{{record.COD_OPTION}}</td>
+                                    <td style="cursor: pointer;font-weight: bold"
+                                        ng-click="returnToWRH(record)">{{record.STS}}
+                                    </td>
+                                    <td>{{record.STS_NOTE}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Sub Item Right Panel-->
+        <div class="col-md-6">
+            <!--Other Info, Order, Weight-->
+            <div class="row gutter-05">
+                <p class="msg-paragraph-emb">Order Information</p>
+                <div class="col-sm-5 col-xs-12 remove-both-margin margine-top5">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding width60">User</span>
+                        <input type="text" readonly="true" class="form-control text-center" ng-model="info.USER_ID">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default align-padding" type="button"><i class="fa fa-user-circle"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-12 remove-both-margin margine-top5">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding width60">Order</span>
+                        <input type="text" readonly="true" class="form-control text-center" ng-model="info.ID">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default align-padding" type="button"><i class="fa fa-500px"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-12 remove-both-margin margine-top5">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding width60">Weight</span>
+                        <input type="text" readonly="true" class="form-control text-center" ng-model="info.WEIGHT">
+                        <span class="input-group-btn">
+                            <p class="btn btn-default align-padding" ng-disabled="true" type="button">gm</p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!--Pick Drop-->
+            <div class="row gutter-05">
+                <div class="col-sm-6 col-xs-12 remove-both-margin margine-top5">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding width60">Picker</span>
+                        <select class="form-control remove-left-border" ng-disabled="!enablePicker"
+                                ng-model="pickerId" ng-change ='changeId(pickerId, "PICKER")'
+                                ng-options="v.NAME for v in dlv track by v.ID"></select>
+                        <span class="input-group-btn">
+                            <input type="number" min="0" readonly="true" class="input-group text-center width100 solid-border"
+                                   placeholder="00" ng-model="info.PICKER_UC">
+                        </span>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default align-padding" ng-disabled="!enablePicker" type="button" ng-click="configureOrder('ASSIGN_PICKER')">
+                                <i class="fa fa-check"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <!--Picker-->
+                <div class="col-sm-6 col-xs-12 remove-both-margin margine-top5">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding width60">Droper</span>
+                        <select class="form-control remove-left-border" ng-model="droperId" ng-disabled="!enableDroper"
+                                ng-change ='changeId(droperId, "DROPER")'
+                                ng-options="v.NAME for v in dlv track by v.ID"></select>
+                        <span class="input-group-btn">
+                            <input type="number" min="0" readonly="true" class="input-group text-center width100 solid-border"
+                                   placeholder="00" ng-model="info.DROPER_UC">
+                        </span>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default align-padding" ng-disabled="!enableDroper" type="button" ng-click="configureOrder('ASSIGN_DROPER')">
+                                <i class="fa fa-check"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!--Charge-->
+            <div class="row gutter-05">
+                <div class="col-sm-6 col-xs-12 remove-both-margin margine-top5">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding width60">Status</span>
+                        <input type="text" readonly="true" class="form-control text-center" ng-model="info.STS">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default align-padding" ng-disabled="true" type="button"><i class="fa fa-500px"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xs-12 remove-both-margin margine-top5">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding">Charge</span>
+                        <input type="number" min="1" class="form-control text-center" placeholder="00" ng-model="info.SERVICE_CHARGE">
+                        <span class="input-group-btn">
+                            <button class="btn btn-info align-padding" style="width: 133px" type="button"
+                                    ng-click="configureOrder('ASSIGN_CHARGE')">Apply Charge</button>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+            <!--<div class="row gutter-05">{{info}}</div>-->
+        </div>
+    </div>
+</div>

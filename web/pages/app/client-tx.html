@@ -1,0 +1,219 @@
+<p class="page-bar text-center" id="CLIENT_TX_201804030116">{{pageHeader}}</p>
+<div ng-show="loading" class="row">
+    <p class="msg-paragraph-emb text-center">Loading...</p>
+</div>
+
+<div ng-include="'pages/app/reload-message.html'"></div>
+
+<div ng-show ="!loading" class="input-form">
+    <div class="row gutter-05">
+        <p class="msg-paragraph-emb">My Orders</p>
+        <div class="col-md-2 col-md-offset-1 margine-top7">
+            <div class="input-group">
+                <span class="input-group-addon align-padding">Order ID</span>
+                <input type="text" class="form-control" placeholder="Search Order" ng-model="orderID">
+                <span class="input-group-btn">
+                    <button class="btn btn-default align-padding" ng-click="findOrder()"> <i class="glyphicon glyphicon-search"></i></button>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-md-2 margine-top7">
+            <div class="input-group">
+                <span class="input-group-addon align-padding">Date Type</span>
+                <select class="form-control remove-left-border center-dropdown" ng-model="dateFilter">
+                    <option selected>Order Date</option>
+                    <option>Pick Date</option>
+                    <option>Drop Date</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-2 margine-top7">
+            <div class="input-group">
+                <span class="input-group-addon align-padding">Date From</span>
+                <input type="text" class="form-control text-center align-padding" uib-datepicker-popup ng-model="dateFrom" is-open="popup1.opened" datepicker-options="dateFromOptions"
+                       ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                    <button class="btn btn-sm btn-default align-padding" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-md-2 margine-top7">
+            <div class="input-group">
+                <span class="input-group-addon align-padding">Date To</span>
+                <input type="text" class="form-control text-center" uib-datepicker-popup ng-model="dateTo" is-open="popup2.opened" datepicker-options="dateToOptions"
+                       ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                    <button class="btn btn-sm btn-default align-padding" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-md-2 margine-top7">
+            <div class="input-group">
+                <span class="input-group-addon align-padding">Status</span>
+                <select class="form-control remove-left-border center-dropdown" ng-model="statusFilter">
+                    <option selected>ALL</option>
+                    <option>ORDER</option>
+                    <option>PICKED</option>
+                    <option>WRH</option>
+                    <option>PTD</option>
+                    <option>DROPPED</option>
+                </select>
+                <span class="input-group-btn">
+                    <button class="btn btn-default align-padding" type="button" ng-click="generateOrders()"><i class="fa fa-download"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--General Table-->
+    <div class="row gutter-05">
+        <div class="fixed-head-table-frame">
+            <div class="fixed-head set-max-height-175">
+                <table class="fixed-head-columns table-hover">
+                    <thead fix-head>
+                        <tr>
+                            <th><i class="fa fa-times" aria-hidden="true" ng-click="removeAll()"></i></th>
+                            <th>SL</th>
+                            <th>ORDER ID</th>
+                            <th>PAID BY</th>
+                            <th>PAYMENT</th>
+                            <th>DELIVERY</th>
+                            <th>CHARGE</th>
+                            <th>ORDER DATE</th>
+                            <th>PICK DATE</th>
+                            <th>PICK TIME</th>
+                            <th>STATUS</th>
+                            <th>WEIGHT</th>
+                            <th>QTY</th>
+                            <th>CHARGE</th>
+                            <th>AMOUNT</th>
+                            <th>COD</th>
+                            <th>COLLECTION</th>
+                            <th>REJECT</th>
+                            <th>DROP DATE</th>
+                            <th>DROP TIME</th>
+                            <th>RCVR NAME</th>
+                            <th>RCVR MOBILE</th>
+                            <th>RCVR ADDRESS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="record in orders"  ng-class="getOrderCSS(record.STS)">
+                            <td><i class="fa fa-eye" aria-hidden="true" ng-click="viewOrder(record.ORDER_ID)"></i></td>
+                            <td>{{$index + 1}}</td>
+                            <td ng-click="viewOrder(record.ORDER_ID)" style="cursor: pointer">{{record.ORDER_ID}}</td>
+                            <td>{{record.PAID_BY}}</td>
+                            <td>{{record.PMT_TYPE}}</td>
+                            <td>{{record.DLV_TYPE}}</td>
+                            <td>{{record.SERVICE_CHARGE}}</td>
+                            <td>{{record.ORDER_DATE}}</td>
+                            <td>{{record.PICK_DATE}}</td>
+                            <td>{{record.PICK_TIME}}</td>
+                            <td>{{record.ORDER_STS}}</td>
+                            <td>{{record.WEIGHT}}</td>
+                            <td>{{record.QTY}}</td>
+                            <td>{{record.SERVICE_CHARGE}}</td>
+                            <td>{{record.FACE_VALUE}}</td>
+                            <td>{{record.COD}}</td>
+                            <td>{{record.COD_DRP}}</td>
+                            <td>{{record.REJECT}}</td>
+                            <td>{{record.DROP_DATE}}</td>
+                            <td>{{record.DROP_TIME}}</td>
+                            <td>{{record.RCVR_NAME}}</td>
+                            <td>{{record.RCVR_MOBILE}}</td>
+                            <td>{{record.RCVR_ADDRESS}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="printMe" class="row gutter-05">
+        <div class="col-md-12">
+            <div class="row gutter-05">
+                <p class="msg-paragraph-emb">My Transaction</p>
+                <div class="col-md-4 col-sm-6 col-md-offset-1 remove-both-margin margine-top7">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding">Search</span>
+                        <input type="text" class="form-control" placeholder="Order Id" ng-disabled="isDriverEnable" ng-model="txOrderID">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default align-padding" type="button" ng-disabled="isDriverEnable" ng-click="generateReport('SEARCH')">
+                                <i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <!--Date From-->
+                <div class="col-md-3 col-sm-6 margine-top7">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding">Date From</span>
+                        <input type="text" readonly="true" class="form-control text-center" uib-datepicker-popup ng-model="dt1" is-open="viewPopup.popup1" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default align-padding" ng-click="open(1)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <!--Date To-->
+                <div class="col-md-3 col-sm-6 margine-top7">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding">Date To</span>
+                        <input type="text" readonly="true" class="form-control text-center" uib-datepicker-popup ng-model="dt2" is-open="viewPopup.popup2" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default align-padding" ng-click="open(2)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            <button class="btn btn-default align-padding" type="button" ng-disabled="isDriverEnable" ng-click="generateReport('DATE')">
+                                <i class="fa fa-download"></i></button>
+                            <button class="btn btn-default align-padding" type="button" ng-disabled="isDriverEnable" ng-click="printTxReport2()">
+                                <i class="fa fa-print"></i></button>
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="row gutter-05">
+                <div class="fixed-head-table-frame">
+                    <div class="fixed-head" style="max-height: 30vh">
+                        <table class="fixed-head-columns table-hover">
+                            <thead fix-head>
+                                <tr>
+                                    <!--<th><i class="fa fa-times" aria-hidden="true" ng-click="clearAccountTable()"></i></th>-->
+                                    <th>PARTICULAR</th>
+                                    <th>CHARGE PAID</th>
+                                    <th>TX DATE TIME</th>
+                                    <th>DESCRIPTION</th>
+                                    <th>PAYMENT</th>
+                                    <th>SERVICE CHARGE</th>
+                                    <th>COD</th>
+                                    <th>ADJUSTMENT</th>
+                                    <th>BALANCE</th>
+                                    <th>REMARK</th>
+                                    <th>TX USER</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="record in transaction">
+                                    <!--<td><i class="fa fa-check" aria-hidden="true" ng-click="addForPayment(record)"></i></td>-->
+                                    <td ng-click="addForPayment(record)" style="cursor: pointer">{{record.PARTICULAR}}</td>
+                                    <td>{{record.SC_PAID}}</td>
+                                    <td>{{record.T_DATE}}</td>
+                                    <td>{{record.DESCRIPTION}}</td>
+                                    <td>{{record.PAYMENT| number : 2}}</td>
+                                    <td>{{record.SC| number : 2}}</td>
+                                    <td>{{record.COD| number : 2}}</td>
+                                    <td>{{record.ADJUSTMENT| number : 2}}</td>
+                                    <td class="btn-info" style="text-align: right">{{record.BALANCE| number : 2}}</td>
+                                    <td>{{record.REMARK}}</td>
+                                    <td>{{record.USER_NAME}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

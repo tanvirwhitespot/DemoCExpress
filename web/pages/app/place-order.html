@@ -1,0 +1,281 @@
+<!-- 'place-order'|'/place-order'|'pages/app/place-order.html'|'PlaceOrderCtrl' -->
+
+<p class="page-bar text-center">{{pageHeader}}</p>
+
+<div class="input-form">
+    <div class="row">
+        <!-- Left Side : Name,Mobile|Address,Email|Item,Product,Weight,Qty|Size,Serial,COD|Button|Item Table-->
+        <div class="col-md-6">
+            <!-- Your Name / Mobile -->
+            <div class="row gutter-05">
+                <p class="msg-paragraph-emb">Basic Information</p>
+                <div class="form-group col-sm-6 col-xs-6 remove-both-margin">
+                    <label>Your Name</label>
+                    <label class="error-msg">{{orderErrorMsg.NAME}}</label>
+                    <input readonly class="form-control" placeholder="Your Name" type="text" ng-model="orderData.NAME">
+                </div>
+                <div class="form-group col-sm-6 col-xs-6 remove-both-margin">
+                    <label>Your Mobile</label>
+                    <label class="error-msg">{{orderErrorMsg.MOBILE}}</label>
+                    <input readonly class="form-control text-center" placeholder="Your Phone Number" ng-model="orderData.MOBILE">
+                </div>
+            </div>
+            <!-- Address / Email -->
+            <div class="row gutter-05">
+                <div class="form-group col-md-6 col-sm-6 remove-both-margin">
+                    <label>Your Address</label>
+                    <label class="error-msg">{{orderErrorMsg.ADDRESS}}</label>
+                    <input readonly class="form-control" placeholder="Your Address" ng-model="orderData.ADDRESS">
+                </div>
+                <div class="form-group col-md-6 col-sm-6 remove-both-margin">
+                    <label>Your Email</label>
+                    <label class="error-msg">{{orderErrorMsg.EMAIL}}</label>
+                    <input readonly class="form-control text-center" placeholder="Your Email" ng-model="orderData.EMAIL">
+                </div>
+            </div>
+            <!-- Pick Address / Item -->
+            <div class="row gutter-05">
+                <p class="msg-paragraph-emb">Item Information</p>
+                <div class="form-group col-sm-6 col-xs-12 remove-both-margin">
+                    <label>Pick Address</label>
+                    <label class="error-msg">{{orderErrorMsg.PICK_ADDRESS}}</label>
+                    <input class="form-control" placeholder="Pick Address" ng-model="orderData.PICK_ADDRESS">
+                </div>
+                <div class="form-group col-sm-6 col-xs-12 remove-both-margin">
+                    <label>Item Name</label>
+                    <label class="error-msg">{{orderErrorMsg.ITEM}}</label>
+                    <input class="form-control" placeholder="Item Name / Description" ng-model="orderData.ITEM">
+                </div>
+            </div>
+            <!-- Product / Weight / Qty -->
+            <div class="row gutter-05">
+                <div class="form-group col-sm-4 col-xs-4 remove-both-margin">
+                    <label>Product</label>
+                    <label class="error-msg">{{orderErrorMsg.ITEM_TYPE}}</label>
+                    <select class="form-control" ng-model=ITEM_TYPE ng-change="itemTypeChanged(ITEM_TYPE)"
+                            ng-options="v.NAME for v in ITEM_TYPES track by v.ID"></select>
+                </div>
+                <div class="form-group col-sm-4 col-xs-4 remove-both-margin">
+                    <label>Weight (Gram)</label>
+                    <label class="error-msg">{{orderErrorMsg.WEIGHT}}</label>
+                    <input type="number" min="1" class="form-control text-center" ng-model="orderData.WEIGHT" placeholder="Weight">
+                </div>
+                <div class="form-group col-sm-4 col-xs-4 remove-both-margin">
+                    <label>Quantity</label>
+                    <label class="error-msg">{{orderErrorMsg.QTY}}</label>
+                    <input type="number" min="1" class="form-control text-center" ng-model="orderData.QTY" placeholder="Quantity">
+                </div>
+            </div>
+            <!-- Size / Serial / COD -->
+            <div class="row gutter-05">
+                <div class="form-group col-xs-4 remove-both-margin">
+                    <label>Size (CFT)</label>
+                    <label class="error-msg">{{orderErrorMsg.SIZE}}</label>
+                    <input class="form-control text-center" placeholder="Cubic Feet" type="number" min="1" ng-model="orderData.SIZE">
+                </div>
+                <div class="form-group col-xs-4 remove-both-margin">
+                    <label>Serial (Optional)</label>
+                    <label class="error-msg">{{orderErrorMsg.SERIAL}}</label>
+                    <input class="form-control text-center" placeholder="Serial Number" ng-model="orderData.SERIAL">
+                </div>
+                <div class="form-group col-xs-4 remove-both-margin">
+                    <label>Product Price</label>
+                    <label class="error-msg">{{orderErrorMsg.COD}}</label>
+
+                    <div class="input-group">
+                        <span class="input-group-addon align-checkbox-addon" style="padding-top: 4px;border-right: none !important"> 
+                            <input type="checkbox" class="addon-element" ng-model="codOption" ng-click="enableCOD(codOption)">
+                        </span>
+                        <span class="input-group-addon align-checkbox-addon remove-left-border"
+                              style="padding: 2px 5px 0px 5px">COD</span>
+                        <input class="form-control text-center" placeholder="Face Value" type="number" min="0" ng-model="orderData.COD">
+                    </div>
+                    <!--<input class="form-control text-center" placeholder="Face Value" type="number" min="0" ng-model="orderData.COD">
+                        <span class="input-group-addon"><input type="checkbox" aria-label="Checkbox"></span>-->
+                </div>
+            </div>
+            <!-- BUTTON: ADD ADD_MORE -->
+            <div class="row gutter-05">
+                <div class="text-center">
+                    <button class="btn btn-xs btn-info width100" ng-click="addItem()">Add</button>
+                    <!--<button class="btn btn-sm btn-default">Add Item From Different Address</button>-->
+                </div>
+            </div>
+            <!-- ITEM TABLE -->
+            <div class="row gutter-05">
+                <div class="scrollable">
+                    <table class="table table-hover center-align-column" fixed-header table-height="189px">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <i class="fa fa-times" aria-hidden="true" ng-click="removeAll()"></i>
+                                </th>
+                                <th>SL</th>
+                                <th>PICK ADDRESS</th>
+                                <th>ITEM NAME</th>
+                                <th>SERIAL</th>
+                                <th>QTY</th>
+                                <th>WEIGHT</th>
+                                <th>SIZE</th>
+                                <th>COD</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="record in items">
+                                <td>
+                                    <i class="fa fa-times" aria-hidden="true" ng-click="removeItem($index)"></i>
+                                </td>
+                                <td>{{$index + 1}}</td>
+                                <td>{{record.PICK_ADDRESS}}</td>
+                                <td>{{record.ITEM}}</td>
+                                <td>{{record.SERIAL}}</td>
+                                <td>{{record.QTY}}</td>
+                                <td>{{record.WEIGHT}}</td>
+                                <td>{{record.SIZE}}</td>
+                                <td>{{record.COD}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">TOTAL</td>
+                                <td>{{orderSummary.QTY}}</td>
+                                <td>{{orderSummary.WEIGHT}}</td>
+                                <td>{{orderSummary.SIZE}}</td>
+                                <td>{{orderSummary.TOTAL}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Right Side : Paid,Payment,Delivery|Pick Drop Time|Receiver Info|Instruction-->
+        <div class="col-md-6">
+            <!-- Paid By / Payment / Delivery -->
+            <div class="row gutter-05">
+                <p class="msg-paragraph-emb">Payment Information</p>
+                <div class="form-group col-xs-4 remove-both-margin">
+                    <label>Paid By</label>
+                    <label class="error-msg">{{orderErrorMsg.PAID_BY}}</label>
+                    <select class="form-control" ng-model="orderData.PAID_BY">
+                        <option selected>Sender</option>
+                        <option>Receiver</option>
+                    </select>
+                </div>
+                <div class="form-group col-xs-4 remove-both-margin">
+                    <label>Payment</label>
+                    <label class="error-msg">{{orderErrorMsg.PAYMENT_METHOD}}</label>
+                    <select class="form-control" ng-model="PAYMENT_METHOD" ng-change="paymentMethodChanged(PAYMENT_METHOD)"
+                            ng-options="v.NAME for v in PAYMENT_METHODS track by v.ID">
+                    </select>
+                </div>
+                <div class="form-group col-xs-4 remove-both-margin">
+                    <label>Delivery</label>
+                    <label class="error-msg">{{orderErrorMsg.DLV_OPTION}}</label>
+                    <select class="form-control" ng-model="DLV_OPTION" ng-change="dlvOptionChanged(DLV_OPTION)" ng-options="v.OPTION for v in DLV_OPTIONS track by v.ID">
+                    </select>
+                </div>
+            </div>
+            <!-- Pick Date Time -->
+            <div class="row gutter-05">
+                <p class="msg-paragraph-emb">Pick / Drop Timing</p>
+                <div class="form-group col-md-6 col-sm-6 col-xs-6 remove-both-margin">
+                    <label>Pick Date</label>
+                    <label class="error-msg">{{orderErrorMsg.PICK_DATE}}</label>
+                    <p class="input-group">
+                        <input type="text" readonly class="form-control" uib-datepicker-popup ng-model="PICK_DATE" is-open="popup1.opened" datepicker-options="pickDateOptions"
+                               ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-sm btn-default align-padding" ng-click="open1()">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                    </p>
+                </div>
+                <div class="form-group col-sm-6 col-xs-6 remove-both-margin">
+                    <label>Pick Time</label>
+                    <label class="error-msg">{{orderErrorMsg.PICK_TIME}}</label>
+                    <select class="form-control" ng-model="PICK_TIME" ng-change="pickTimeChanged(PICK_TIME)" ng-options="v.RANGE for v in pt track by v.ID">
+                    </select>
+                </div>
+            </div>
+            <!-- Drop Date Time -->
+            <div class="row gutter-05">
+                <div class="form-group col-md-6 col-sm-6 col-xs-6 remove-both-margin">
+                    <label>Drop Date</label>
+                    <label class="error-msg">{{orderErrorMsg.DROP_DATE}}</label>
+                    <p class="input-group">
+                        <input type="text" readonly class="form-control" uib-datepicker-popup ng-model="DROP_DATE" is-open="popup2.opened" datepicker-options="dropDateOptions"
+                               ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-sm btn-default align-padding" ng-click="open2()">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                    </p>
+                </div>
+                <div class="form-group col-sm-6 col-xs-6 remove-both-margin">
+                    <label>Drop Time</label>
+                    <label class="error-msg">{{orderErrorMsg.DROP_TIME}}</label>
+                    <select class="form-control" ng-model="DROP_TIME" ng-change="dropTimeChanged(DROP_TIME)" ng-options="v.RANGE for v in drt track by v.ID">
+                    </select>
+                </div>
+            </div>
+            <!-- Receiver Name / Phone -->
+            <div class="row gutter-05">
+                <p class="msg-paragraph-emb">Drop / Receiver's Information</p>
+                <div class="form-group col-sm-6 col-xs-6 remove-both-margin">
+                    <label>Receiver's Name</label>
+                    <label class="error-msg">{{orderErrorMsg.RCVR_NAME}}</label>
+                    <input class="form-control" placeholder="Receiver's Name" ng-required="required" ng-model="orderData.RCVR_NAME">
+                </div>
+                <div class="form-group col-sm-6 col-xs-6 remove-both-margin">
+                    <label>Receiver's Phone</label>
+                    <label class="error-msg">{{orderErrorMsg.RCVR_MOBILE}}</label>
+                    <input class="form-control" placeholder="Receiver's Phone" ng-model="orderData.RCVR_MOBILE">
+                </div>
+            </div>
+            <!-- Receiver Address / Drop Address -->
+            <div class="row gutter-05">
+                <div class="form-group col-sm-6 col-xs-6 remove-both-margin">
+                    <label>Receiver's Address</label>
+                    <label class="error-msg">{{orderErrorMsg.RCVR_ADDRESS}}</label>
+                    <input class="form-control" placeholder="Receiver's Address" ng-model="orderData.RCVR_ADDRESS">
+                </div>
+                <div class="form-group col-sm-6 col-xs-6 remove-both-margin">
+                    <label>Others</label>
+                    <label class="error-msg">{{orderErrorMsg.DROP_ADDRESS}}</label>
+                    <input class="form-control" readonly="true" placeholder="Drop Address" ng-model="orderData.DROP_ADDRESS">
+                </div>
+            </div>
+            <!-- Pickup /Drop Instruction -->
+            <div class="row gutter-05">
+                <p class="msg-paragraph-emb">Instruction</p>
+                <div class="form-group col-xs-6 remove-both-margin">
+                    <label>Pickup Instruction</label>
+                    <label class="error-msg">{{orderErrorMsg.PICK_INST}}</label>
+                    <textarea class="form-control" rows="3" placeholder="Max 200 Letters" ng-model="orderData.PICK_INST"></textarea>
+                </div>
+                <div class="form-group col-xs-6 remove-both-margin">
+                    <label>Drop Instruction</label>
+                    <label class="error-msg">{{orderErrorMsg.DROP_INST}}</label>
+                    <textarea class="form-control" rows="3" placeholder="Max 200 Letters" ng-model="orderData.DROP_INST"></textarea>
+                </div>
+            </div>
+            <!-- Special Instruction -->
+            <div class="row gutter-05">
+                <div class="form-group col-xs-12 remove-both-margin">
+                    <label>Special Instruction</label>
+                    <label class="error-msg">{{orderErrorMsg.SPECIAL_INST}}</label>
+                    <textarea class="form-control" rows="3" placeholder="Max 400 Letters" ng-model="orderData.SPECIAL_INST"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <!-- Submit Buuton -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-2 col-md-offset-5 col-sm-offset-4">
+            <div class="text-center">
+                <button type="button" class="btn btn-primary submit" ng-click="openConfirm()">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>

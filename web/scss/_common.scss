@@ -1,0 +1,559 @@
+/* 
+    Created on : Dec 28, 2017, 8:53:25 AM
+    Author     : G.S.Alim
+*/
+
+/* Flatten das boostrap */
+/*https://stackoverflow.com/questions/9742166/getting-rid-of-all-the-rounded-corners-in-twitter-bootstrap*/
+/*.well, .navbar-inner, .popover, .btn, .tooltip, input, select, textarea, pre, .progress, .modal, .add-on, .alert, .table-bordered, .nav>.active>a, .dropdown-menu, .tooltip-inner, .badge, .label, .img-polaroid, .panel {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    border-radius: 0px !important;
+    border-collapse: collapse !important;
+    background-image: none !important;
+}*/
+
+/*input[type=checkbox].css-checkbox { position: absolute;  overflow: hidden;  clip: rect(0 0 0 0);  height:1px;  width:1px;  margin:-1px;  padding:0; border:0; } 
+input[type=checkbox].css-checkbox + label.css-label { padding-left:20px; height:15px;  display:inline-block; line-height:15px; background-repeat:no-repeat; background-position: 0 0; font-size:15px; vertical-align:middle; cursor:pointer; } 
+input[type=checkbox].css-checkbox:checked + label.css-label { background-position: 0 -15px; }  .css-label{ background-image:url(http://csscheckbox.com/checkboxes/lite-x-red.png); }*/
+
+
+
+
+
+
+.default-btn-bdr{
+    border-color: $btn-default-bdr;
+}
+.center-dropdown{
+    padding-left: 45%;
+    text-align-last: center;
+}
+.pick{
+    background-color: $pick-bg-color;
+    color: $pick-font-color;
+}
+.drop{
+    background-color: $drop-bg-color;
+    color: $drop-font-color;
+}
+.reject{
+    background-color: red;
+    color: whitesmoke;
+    font-weight: bold !important;
+}
+.order{
+    background-color: $order-bg-color;
+    /*color: whitesmoke;*/
+}
+.dropped{
+    background-color: $dropped-bg-color;
+    /*color: $drop-font-color;*/
+}
+.dashboard{
+    padding-left: 10px;
+}
+
+.bottom-shadow{
+    box-shadow: 0px 1px 1px #999;
+}
+.width150{
+    width: 150px;
+}
+.width140{
+    width: 140px;
+}
+.width120{
+    width: 120px;
+}
+.width130{
+    width: 130px;
+}
+.width110{
+    width: 110px;
+}
+.width100{
+    width: 100px;
+}
+.width70{
+    width: 70px;
+}
+.width80{
+    width: 80px;
+}
+.width60{
+    width: 60px;
+}
+.width65{
+    width: 65px;
+}
+.width68{
+    width: 68px;
+}
+.width50{
+    width: 50px;
+}
+.width40{
+    width: 40px;
+}
+.width5{
+    width: 5px;
+}
+.solid-border{
+    border: 1px solid #ddd;
+}
+
+.margine-top7{
+    margin-top: 7px;
+}
+
+.margine-top10{
+    margin-top: 10px;
+}
+
+.margine-top15{
+    margin-top: 15px;
+}
+
+.margine-top5{
+    margin-top: 5px;
+}
+.margine-bottom5{
+    margin-bottom: 5px;
+}
+.margine-bottom2{
+    margin-bottom: 2px;
+}
+.margine-bottom0{
+    /*    .form-group, .input-group{*/
+    margin-bottom: 0 !important;
+    /*}*/
+}
+.dropdown:hover>.dropdown-menu {
+    display: block;
+}
+
+.error-msg{
+    font-style: italic;
+    color: red;
+}
+.square-border{
+    border-radius: 0 !important;
+    box-shadow: none;
+}
+
+.navbar{
+    margin-bottom: 0;
+}
+.page-bar{
+    background: $page-bar-bg;
+    padding-top: 4px;
+    height: 30px;
+    font-size: $page-bar-font-size;
+    font-weight: 300;
+    margin: 5px 0;
+    /*opacity: 0.5;*/
+    color: $page-bar-font-color;
+}
+
+.msg-paragraph{
+    background: $msg-paragraph-bg;
+    padding-top: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 23px;
+    font-size: $form-label-font-size;
+    font-weight: 300;
+    margin-bottom: 0; 
+}
+
+.msg-paragraph-emb{
+    background: $msg-paragraph-bg;
+    padding: 2px 5px 0 5px;
+    height: 23px;
+    font-size: $form-label-font-size;
+    font-weight: 300;
+    margin: 2px 3px;
+    border-radius: 3px;
+    border: 1px solid $page-bar-bg;
+}
+
+.align-padding{
+    height: $form-input-height;
+    padding: 0px 10px;
+    text-align: center;
+    .fa-check{
+        color: green;
+    }
+}
+.align-checkbox-addon{
+    margin:0;
+    padding: 0;
+    background-color: $page-bar-bg;
+    border: 1px solid #ddd;
+    border-right:none;
+
+    .addon-element{
+        justify-content: center;
+        margin: 2px 7px 0 7px;
+        padding: 0;
+        /*padding-bottom: 20px;*/
+        /*width: 25px;*/
+        height: 15px;
+    }
+}
+
+.myclass{
+    .input-group .form-control {
+        margin: 0px !important;
+        padding: 0px !important;
+    } 
+}
+
+.remove-right-border{
+    border: 0;
+    outline: 1px solid #ddd;
+    outline-offset:-1px;
+}
+.remove-left-border{
+    /*margin-left: 10px;*/
+    /*border-radius: 0px !important;*/
+    /*border-bottom-left-radius: 0px !important;*/
+    /*border-top-left-radius: 0px !important;*/
+    /*-webkit-appearance: none;*/
+
+    /*box-shadow: none;*/
+    border: 0;
+    outline: 1px solid #ddd;
+    outline-offset:-1px;
+    /*border-radius: 4px;*/
+    /*border-top-right-radius: 4px;*/
+
+}
+.input-form{
+    .input-group{
+        span{
+            font-size: $form-label-font-size;
+            button{
+                font-size: $form-label-font-size;
+            }
+        }
+    }
+
+    button{
+        font-size: $form-label-font-size;
+    }
+
+    label{
+        padding-left: 3px;
+        font-size: $form-label-font-size;
+        /*font-weight: lighter;*/
+        font-weight: 200;
+        margin-bottom: 0px;
+    }
+    input,select{
+        font-size: $form-label-font-size;
+        height: $form-input-height;
+        padding: 0 10px;
+        box-shadow: none;
+    }
+    input:focus,select:focus{
+        background: $input-form-focus-color;
+    }
+    .form-group{
+        margin-bottom: 7px;
+        p{
+            margin-bottom: 0;
+        }
+    }
+    .uib-time{
+        input {
+            width: 100%;
+        }
+        button {
+            font-size: $form-label-font-size;
+            height: $form-input-height;
+            padding: 0 7px;
+            margin-left: 1px;
+        }
+    }
+    .form-grp-btns{
+        button{
+            width: 85px;
+            height: 25px;
+            padding: 0;
+        }
+        margin-bottom: 10px;
+    }
+    .fa{
+        cursor: pointer;
+    }
+}/*End of .input-form*/
+
+.submit{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/*.btn-default{      
+    height: 25px;
+    font-size: 10px;
+    padding: 0px 10px;
+    text-align: center;
+}*/
+
+.remove-left-margin{
+    padding-left: 0;
+}
+.remove-right-margin{
+    padding-right: 0;
+}
+.remove-both-margin{
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.fa-times{
+    cursor: pointer;
+    color: red;
+    display: box;
+    padding: 0 10px;
+}
+
+.min-width-25{
+    min-width: 25px;    
+}
+
+.min-width-28{
+    min-width: 28px;    
+}
+
+.min-width-30{
+    min-width: 30px;    
+}
+
+.min-width-45{
+    min-width: 45px;
+}
+
+.min-width-70{
+    min-width: 70px;    
+}
+
+.min-width-60{
+    min-width: 60px;
+}
+
+.min-width-120{
+    min-width: 200px;
+}
+
+.selected{
+    color: #269abc;
+    background-color: $msg-paragraph-bg;
+}
+
+table.clone thead tr:first-child th {
+    margin-left: 0px;
+}
+
+.clone {
+    border-left: 1px #ddd solid;
+    border-right: 1px #ddd solid;
+    /*background-color: lightgray;*/
+    /*min-width: 100%;*/
+}
+
+.fixed-head-table-frame{
+    margin: 7px 3px 7px 3px;
+}
+
+.fixed-head{
+    overflow: auto;
+    border: 1px #ddd solid;
+    /*border-top: none;*/
+    /*border-left: 1px #ddd solid;*/
+}
+
+.fixed-head-columns {
+    min-width: 100%;
+
+    tbody tr td{
+        border-right: 1px #ddd solid;
+        /*        &:last-child{
+                    border-right: none;
+                }*/
+    }
+    tbody tr{
+        border-bottom: 1px #ddd solid;
+    }
+    thead tr th{
+        border-right: 1px #ddd solid;
+        border-top: 1px #ddd solid;
+        /*border-bottom: 1px #ddd solid;*/
+    }
+    thead > tr > th{
+        text-align: center;
+        padding: 3px 3px;
+        white-space: nowrap;
+        font-size: 10px;
+        font-weight: bold;
+        background-color: lightgray;
+    }
+
+    tbody > tr > td{
+        text-align: center;
+        padding: 3px 3px;
+        font-size: $form-label-font-size;
+        font-weight: 200;
+        white-space: nowrap;
+    }
+}
+
+.center-align-column {
+    thead > tr > th{
+        text-align: center;
+        padding: 3px 3px;
+        font-size: $form-label-font-size;
+        /*font-weight: lighter;*/
+        font-weight: 200;
+        white-space: nowrap;
+    }
+    tbody > tr > td{
+        text-align: center;
+        padding: 3px 3px;
+        font-size: $form-label-font-size;
+        font-weight: 200;
+        white-space: nowrap;
+    }
+
+    /*    tbody > tr > td:first-child,thead > tr > th:first-child{
+            padding: 3px 5px;
+        }*/
+
+    /*    tbody > tr > td:nth-child(2),thead > tr > th:nth-child(2),tbody > tr > td:nth-child(3),thead > tr > th:nth-child(3){
+            min-width: 28px;
+        }*/
+
+    /*    tbody > tr > td:nth-child(4),thead > tr > th:nth-child(4),tbody > tr > td:nth-child(6),thead > tr > th:nth-child(6){
+            min-width: 45px;
+        }*/
+
+    /*    tbody > tr > td:nth-child(5),thead > tr > th:nth-child(5){
+            min-width: 70px;
+        }*/
+}
+
+.scrollable {
+    thead > tr > th{
+        border-bottom-width: 1px;
+        background-color: lightgray;
+        font-size: 10px;
+        /*border-color: $msg-paragraph-bg;*/
+        font-weight: bold;
+        /*color: $page-bar-bg;*/
+    }
+    /*border-collapse: collapse;*/
+    overflow-x: scroll;
+
+    table{
+        margin: 0;
+        /*width: 100%;*/
+    }
+    margin: 7px 3px;
+    border: #ddd solid 1px;
+}
+
+table .table-bordered{
+    border: none;
+}
+
+.set-max-height-145{
+    max-height: 145px;
+}
+
+.set-max-height-195{
+    min-height: 195px;
+    max-height: 195px;
+}
+.set-max-height-175{
+    min-height: 175px;
+    max-height: 175px;
+}
+
+.FHT{
+    thead,tfoot{
+        display:block;
+    }
+    tbody{
+        display: block;
+        height: inherit;
+        overflow: auto;
+    }
+}
+
+/*https://codepen.io/tjvantoll/pen/JEKIu*/
+.fixed_headers {
+    table-layout: fixed;
+    border-collapse: collapse;
+
+    /*th { text-decoration: underline; }*/
+    /*    th, td {
+            padding: 5px;
+            text-align: left;
+        }*/
+
+    td:nth-child(1), th:nth-child(1) { min-width: 40px; }
+    td:nth-child(2), th:nth-child(2) { min-width: 50px; }
+    td:nth-child(3), th:nth-child(3) { min-width: 60px; }
+    td:nth-child(4), th:nth-child(4) { min-width: 60px; }
+
+    thead {
+        tr {
+            display: block;
+            position: relative;
+        }
+    }
+    tbody {
+        display: block;
+        overflow: auto;
+        width: 100%;
+        height: 180px;
+    }
+}
+
+/*angular.element(elem.querySelectorAll('thead, tfoot')).css('display', 'block');*/
+
+/*angular.element(elem.querySelectorAll('tbody')).css({
+    'display': 'block',
+        'height': $attrs.tableHeight || 'inherit',
+        'overflow': 'auto'
+});*/
+
+/*@media (min-width: 768px){
+    .scrollable {
+        border: none;
+    }
+}*/
+
+/*@media (max-width: 100px){
+    .scrollable {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+    }
+}*/
+
+.middle-cell-value{
+    tbody > tr > td{
+        vertical-align: middle;
+    }
+}
+
+textarea {
+    resize: none;
+}
+
+

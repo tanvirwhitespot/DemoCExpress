@@ -1,0 +1,42 @@
+<div class="row">
+    <!--<div ng-include="'pages/app/navbar.html'"></div> navbar-fixed-top-->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" ng-click="isNavCollapsed = !isNavCollapsed">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" data-ui-sref="app">CEXPRESS</a>
+        </div>
+
+        <div class="collapse navbar-collapse" uib-collapse="isNavCollapsed">
+            <ul ng-repeat="menu in menues" class="nav navbar-nav">
+                <li ng-if="!menu.menuitem" ng-class="{'active': !$index}"><a role="button" data-ui-sref={{menu.onclick}}>{{menu.name}}</a></li>
+                <li ng-if="menu.menuitem" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{menu.name}}</a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li ng-click="hideMenu()" ng-repeat="item in menu.menuitem">
+                            <a data-ui-sref={{item.onclick}}>{{item.name}}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{userId}}</a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li ng-click="hideMenu()"><a data-ui-sref="app.change-password">Change Password</a></li>
+                        <li ng-click="hideMenu()"><a data-ui-sref="logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div  style="margin: 0px 15px 0px 15px" data-ui-view></div>
+    
+</div>
+

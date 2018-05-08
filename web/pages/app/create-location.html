@@ -1,0 +1,374 @@
+<!-- 'create-location'|'/create-location'|'pages/app/create-location.html'|'CreateLocationCtrl' -->
+<p class="page-bar text-center">{{pageHeader}}</p>
+<div class="create-location input-form">
+    <div ng-if="showZone" class="row">
+        <!--Zone Row-->
+        <div class="col-md-6">
+            <!--Zone Information-->
+            <div class="row gutter-05">
+                <p class="msg-paragraph-emb">Zone Information</p>
+                <!--ID-->
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>ID</label>
+                    <label class="error-msg">{{zoneErrorMsg.id}}</label>
+                    <p class="input-group">
+                        <input type="number" min="0" class="form-control" placeholder="Auto" ng-model="zoneData.ID" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-sm btn-primary align-padding" ng-click="findZone()" ng-keypress="clearZone()">Find Zone</button>
+                        </span>
+                    </p>
+                </div>
+                <!--Zone Name-->
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>Zone Name</label>
+                    <label class="error-msg">{{zoneErrorMsg.name}}</label>
+                    <input class="form-control" placeholder="Name of the Zone" ng-model="zoneData.NAME" ng-keypress="clearZone()">
+                </div>
+                <!--Status-->
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>Status</label>
+                    <label class="error-msg">{{zoneErrorMsg.status}}</label>
+                    <select class="form-control" ng-model="zoneData.STATUS">
+                        <option selected>Active</option>
+                        <option>Deactive</option>
+                    </select>
+                </div>
+            </div>
+            <!--Description-->
+            <div class="form-group">
+                <label>Description</label>
+                <label class="error-msg">{{zoneErrorMsg.desc}}</label>
+                <input class="form-control" placeholder="Description" ng-model="zoneData.DESCRIP" ng-keypress="clearZone()">
+            </div>
+            <!--Create/Update Info-->
+            <div class="row gutter-05">
+                <div class="form-group col-sm-6 col-md-6 remove-both-margin">
+                    <label>Create Info</label>
+                    <input class="form-control" placeholder="Create Information" readonly="true" ng-model="zoneData.CREATE_INFO">
+                </div>
+                <div class="form-group col-sm-6 col-md-6 remove-both-margin">
+                    <label>Update Info</label>
+                    <input class="form-control" placeholder="Update Information" readonly="true" ng-model="zoneData.UPDATE_INFO">
+                </div>
+            </div>
+            <!--<hr>-->
+            <!--Buttons-->
+            <div class="row text-center form-grp-btns gutter-05">
+                <button type="button" class="btn btn-default btn-sm" ng-click="createZone()" ng-disabled="busyZone">Create</button>
+                <button type="button" class="btn btn-default btn-sm" ng-click="updateZone()" ng-disabled="busyZone">Update</button>
+                <button type="button" class="btn btn-default btn-sm" ng-click="clearZone('init')" ng-disabled="busyZone">Clear</button>
+            </div>
+        </div>
+        <!--Zone List Table-->
+        <div class="col-md-6">
+            <div class="row gutter-05">
+                <p class="msg-paragraph-emb">Zone List</p>
+
+                <div class="fixed-head-table-frame">
+                    <div class="fixed-head set-max-height-175">
+                        <table class="fixed-head-columns">
+                            <thead fix-head>
+                                <tr>
+                                    <th><i class="fa fa-search" aria-hidden="true"></i></th>
+                                    <!--<th>SL</th>-->
+                                    <th>ID</th>
+                                    <th>NAME</th>
+                                    <th>DESCRIPTION</th>
+                                    <th>STATUS</th>
+                                    <th>CREATE INFO</th>
+                                    <th>UPDATE INFO</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="zone in zones" ng-class="{selected: $index + 1 === selectedRow}" ng-click="selectRow($index + 1)">
+                                    <td class="min-width-30"><i class="fa fa-eye" aria-hidden="true" ng-click="viewZone(zone.ID)"></i></td>
+                                    <!--<td class="min-width-30">{{$index + 1}}</td>-->
+                                    <td class="min-width-30">{{zone.ID}}</td>
+                                    <td class="min-width-45">{{zone.NAME}}</td>
+                                    <td class="min-width-70">{{zone.DESCRIP}}</td>
+                                    <td class="min-width-45">{{zone.STATUS}}</td>
+                                    <td>{{zone.CREATE_INFO}}</td>
+                                    <td>{{zone.UPDATE_INFO}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--<hr>-->
+            <div class="row text-center form-grp-btns gutter-05">
+                <button type="button" class="btn btn-default btn-sm" ng-disabled="busyZone" ng-click="listZones()">List Zones</button>
+                <button type="button" class="btn btn-default btn-sm" ng-disabled="busyZone" ng-click="clearZonesList()">Clear</button>
+            </div>
+        </div>
+        <!--Zone row-->
+    </div>
+    <!--Vehicle-->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row gutter-05">
+                <p class="msg-paragraph-emb">Vehicle Information</p>
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>ID</label>
+                    <label class="error-msg">{{vehicleErrorMsg.ID}}</label>
+                    <p class="input-group">
+                        <input type="number" min="0" class="form-control" placeholder="Auto" ng-model="vehicleData.ID" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-sm btn-primary align-padding" ng-click="findVehicle()" ng-keypress="findVehicle()">Find Vehicle</button>
+                        </span>
+                    </p>
+                </div>
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>Vehicle Name</label>
+                    <label class="error-msg">{{vehicleErrorMsg.NAME}}</label>
+                    <input class="form-control" placeholder="Name of the Vehicle" ng-model="vehicleData.NAME">
+                </div>
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>Status</label>
+                    <label class="error-msg">{{vehicleErrorMsg.STATUS}}</label>
+                    <select class="form-control" ng-model="vehicleData.STATUS">
+                        <option selected>Active</option>
+                        <option>Deactive</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row gutter-05">
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>Description</label>
+                    <label class="error-msg">{{vehicleErrorMsg.DESCRIP}}</label>
+                    <input class="form-control" placeholder="Description" ng-model="vehicleData.DESCRIP">
+                </div>
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>Capacity (in grams)</label>
+                    <label class="error-msg">{{vehicleErrorMsg.CAPACITY}}</label>
+                    <input type="number" min="1" class="form-control" placeholder="Capacity of the Vehicle" ng-model="vehicleData.CAPACITY">
+                </div>
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>Used Capacity</label>
+                    <label class="error-msg">{{vehicleErrorMsg.USED_CAPACITY}}</label>
+                    <input type="number" min="1" class="form-control" readonly="true" ng-model="vehicleData.USED_CAPACITY">
+                </div>
+            </div>
+            <div class="row gutter-05">
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>Volume</label>
+                    <label class="error-msg">{{vehicleErrorMsg.VOLUME}}</label>
+                    <input type="number" min="1" class="form-control" placeholder="Volume: WxLxHx" ng-model="vehicleData.VOLUME">
+                </div>
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>Used Volume</label>
+                    <label class="error-msg">{{vehicleErrorMsg.USED_VOLUME}}</label>
+                    <input type="number" min="1" class="form-control" readonly="true" ng-model="vehicleData.USED_VOLUME">
+                </div>
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>Serial No</label>
+                    <label class="error-msg">{{vehicleErrorMsg.SERIAL}}</label>
+                    <input class="form-control" placeholder="Serial / Registration no" ng-model="vehicleData.SERIAL">
+                </div>
+            </div>
+            <div class="row gutter-05">
+                <div class="form-group col-sm-6 col-md-6 remove-both-margin">
+                    <label>Create Info</label>
+                    <input class="form-control" placeholder="Create Information" readonly="true" ng-model="vehicleData.CREATE_INFO">
+                </div>
+                <div class="form-group col-sm-6 col-md-6 remove-both-margin">
+                    <label>Update Info</label>
+                    <input class="form-control" placeholder="Update Information" readonly="true" ng-model="vehicleData.UPDATE_INFO">
+                </div>
+            </div>
+            <div class="row text-center form-grp-btns gutter-05">
+                <button type="button" class="btn btn-default btn-sm" ng-click="createVehicle()" ng-disabled="busyVehicle">Create</button>
+                <button type="button" class="btn btn-default btn-sm" ng-click="updateVehicle()" ng-disabled="busyVehicle">Update</button>
+                <button type="button" class="btn btn-default btn-sm" ng-click="clearVehicle('init')" ng-disabled="busyVehicle">Clear</button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row gutter-05">
+                <p class="msg-paragraph-emb">Vehicle List</p>
+                <div class="fixed-head-table-frame">
+                    <div class="fixed-head set-max-height-175">
+                        <table class="fixed-head-columns">
+                            <thead fix-head>
+                                <tr>
+                                    <th><i class="fa fa-search" aria-hidden="true"></i></th>
+                                    <!--<th class="min-width-30">SL</th>-->
+                                    <th>ID</th>
+                                    <th>NAME</th>
+                                    <th>STATUS</th>
+                                    <th>DESCRIPTION</th>
+                                    <th>SERIAL</th>
+                                    <th>CAPACITY</th>
+                                    <th>USED CAPACITY</th>
+                                    <th>VOLUME</th>
+                                    <th>USED VOLUME</th>
+                                    <!--<th>CREATE INFO</th>-->
+                                    <!--<th>UPDATE INFO</th>-->
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="vehicle in vehicles" ng-class="{selected: $index + 1 === selectedVehicle}" ng-click="selectVehicleRow($index + 1)">
+                                    <td class="min-width-30"><i class="fa fa-eye" aria-hidden="true" ng-click="viewVehicle(vehicle.ID)"></i></td>
+                                    <!--<td>{{$index + 1}}</td>-->
+                                    <td class="min-width-30">{{vehicle.ID}}</td>
+                                    <td>{{vehicle.NAME}}</td>
+                                    <td>{{vehicle.STATUS}}</td>
+                                    <td>{{vehicle.DESCRIP}}</td>
+                                    <td>{{vehicle.SERIAL}}</td>
+                                    <td>{{vehicle.CAPACITY}}</td>
+                                    <td>{{vehicle.USED_CAPACITY}}</td>
+                                    <td>{{vehicle.VOLUME}}</td>
+                                    <td>{{vehicle.USED_VOLUME}}</td>
+                                    <!--<td>{{vehicle.CREATE_INFO}}</td>-->
+                                    <!--<td>{{vehicle.UPDATE_INFO}}</td>-->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center form-grp-btns gutter-05">
+                <button type="button" class="btn btn-default btn-sm" ng-disabled="busyVehicle" ng-click="listVehicles()">List Vehicles</button>
+                <button type="button" class="btn btn-default btn-sm" ng-disabled="busyVehicle" ng-click="clearVehicleList()">Clear</button>
+            </div>
+        </div>
+    </div>
+    <!--Driver-->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row gutter-05">
+                <p class="msg-paragraph-emb">Driver Information</p>
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>ID</label>
+                    <label class="error-msg">{{deliveryErrorMsg.ID}}</label>
+                    <p class="input-group">
+                        <input type="number" min="0" class="form-control" placeholder="Auto" ng-model="deliveryData.ID" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-sm btn-primary align-padding" ng-click="findDelivery()" ng-keypress="findDelivery()">Find Driver</button>
+                        </span>
+                    </p>
+                </div>
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>Driver Name</label>
+                    <label class="error-msg">{{deliveryErrorMsg.NAME}}</label>
+                    <input class="form-control" placeholder="Name of the Driver" ng-model="deliveryData.NAME">
+                </div>
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>Status</label>
+                    <label class="error-msg">{{deliveryErrorMsg.STATUS}}</label>
+                    <select class="form-control" ng-model="deliveryData.STATUS">
+                        <option selected>Active</option>
+                        <option>Deactive</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row gutter-05">
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>Road No</label>
+                    <label class="error-msg">{{deliveryErrorMsg.DESCRIP}}</label>
+                    <input class="form-control" placeholder="Road Information" ng-model="deliveryData.DESCRIP">
+                </div>
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>Contact No</label>
+                    <label class="error-msg">{{deliveryErrorMsg.CONTACT}}</label>
+                    <input class="form-control" placeholder="Contact Number" ng-model="deliveryData.CONTACT">
+                </div>
+                <div class="form-group col-sm-4 col-md-4 remove-both-margin">
+                    <label>Login ID</label>
+                    <label class="error-msg">{{deliveryErrorMsg.LOGIN_ID}}</label>
+                    <input type="number" min="0" class="form-control" placeholder="Login Id" ng-model="deliveryData.LOGIN_ID">
+                </div>
+            </div>
+
+            <div class="row gutter-05">
+                <div class="form-group col-sm-6 col-md-6 remove-both-margin">
+                    <label>Address</label>
+                    <label class="error-msg">{{deliveryErrorMsg.ADDRESS}}</label>
+                    <input class="form-control" placeholder="Driver Address" ng-model="deliveryData.ADDRESS">
+                </div>
+                <div class="form-group col-sm-6 col-md-6 remove-both-margin">
+                    <label>Vehicle</label>
+                    <label class="error-msg">{{deliveryErrorMsg.VEHICLE}}</label>
+
+                    <select class="form-control" ng-model="vehicleCB" 
+                            ng-options="v.NAME for v in ve track by v.ID">
+                    </select>
+                </div>
+            </div>
+
+            <div class="row gutter-05">
+                <div class="form-group col-sm-6 col-md-6 remove-both-margin">
+                    <label>Create Info</label>
+                    <input class="form-control" placeholder="Create Information" readonly="true" ng-model="deliveryData.CREATE_INFO">
+                </div>
+                <div class="form-group col-sm-6 col-md-6 remove-both-margin">
+                    <label>Update Info</label>
+                    <input class="form-control" placeholder="Update Information" readonly="true" ng-model="deliveryData.UPDATE_INFO">
+                </div>
+            </div>
+
+            <div class="row text-center form-grp-btns gutter-05">
+                <button type="button" class="btn btn-default btn-sm" ng-click="createDelivery()" ng-disabled="busyDelivery">Create</button>
+                <button type="button" class="btn btn-default btn-sm" ng-click="updateDelivery()" ng-disabled="busyDelivery">Update</button>
+                <button type="button" class="btn btn-default btn-sm" ng-click="clearDelivery('init')" ng-disabled="busyDelivery">Clear</button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row gutter-05">
+                <p class="msg-paragraph-emb">Driver List</p>
+                <div class="fixed-head-table-frame">
+                    <div class="fixed-head set-max-height-175">
+                        <table class="fixed-head-columns">
+                            <thead fix-head>
+                                <tr>
+                                    <th><i class="fa fa-search" aria-hidden="true"></i></th>
+                                    <!--<th>SL</th>-->
+                                    <th>ID</th>
+                                    <th>NAME</th>
+                                    <th>VEHICLE</th>
+                                    <th>LID</th>
+                                    <th>STATUS</th>
+                                    <th>DESCRIPTION</th>
+                                    <th>CONTACT</th>
+                                    <th>ADDRESS</th>
+                                    <!--<th>CREATE INFO</th>-->
+                                    <!--<th>UPDATE INFO</th>-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="delivery in deliveries" ng-class="{selected: $index + 1 === selectedDelivery}" ng-click="selectDeliveryRow($index + 1)">
+                                    <td class="min-width-30"><i class="fa fa-eye" aria-hidden="true" ng-click="viewDelivery(delivery.ID)"></i></td>
+                                    <!--<td>{{$index + 1}}</td>-->
+                                    <td class="min-width-30">{{delivery.ID}}</td>
+                                    <td>{{delivery.NAME}}</td>
+                                    <td>{{delivery.VEHICLE}}</td>
+                                    <td>{{delivery.LOGIN_ID}}</td>
+                                    <td>{{delivery.STATUS}}</td>
+                                    <td>{{delivery.DESCRIP}}</td>
+                                    <td>{{delivery.CONTACT}}</td>
+                                    <td>{{delivery.ADDRESS}}</td>
+                                    <!--<td>{{delivery.CREATE_INFO}}</td>-->
+                                    <!--<td>{{delivery.UPDATE_INFO}}</td>-->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center form-grp-btns gutter-05">
+                <button type="button" class="btn btn-default btn-sm" ng-disabled="busyDelivery" ng-click="listDeliveries()">List Drivers</button>
+                <button type="button" class="btn btn-default btn-sm" ng-disabled="busyDelivery" ng-click="clearDeliveriesList()">Clear</button>
+            </div>
+        </div>
+    </div>
+
+    <!--    <div class="row">
+            <div class="col-md-12">
+                <p class="msg-paragraph-emb">Compack Table</p>
+                <div class="scrollable">
+                    <compack-table header="zoneHeader" data="zones"></compack-table>
+                </div>
+            </div>
+        </div>-->
+
+</div>

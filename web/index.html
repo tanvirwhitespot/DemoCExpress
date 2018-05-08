@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html ng-app="app">
+    <title>CExpress</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="css/hotkeys.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+
+    <body>
+
+        <!--<div>-->
+        <div class="container-fluid main-view" data-ui-view>
+            <h3 class="text-center jumbotron">Loading...Please Wait.</h3>
+        </div>
+
+        <div ng-include="'pages/app/footer.html'"></div>
+
+        <!--Bootstrap & Others-->
+        <script src="script/lib/jquery-3.2.1.min.js"></script>
+        <script src="script/lib/bootstrap.js"></script>
+
+        <!--Angular-->
+        <script src="script/lib/angular.js"></script>
+        <script src="script/lib/angular-ui-router-1.0.11.js"></script>
+        <script src="script/lib/ui-bootstrap-tpls-2.5.0.js"></script>
+        <script src="script/lib/ng-storage.js"></script>
+        <script src="script/lib/hotkeys.min.js"></script>
+        <script src="script/lib/pdfmake.min.js"></script>
+        <script src="script/lib/vfs_fonts.js"></script>
+        <script src="script/lib/angular-cookies.min.js"></script>
+
+        <script src="script/lib/SweetAlert.js"></script>
+        <script src="script/lib/sweetalert/sweet-alert.min.js"></script>
+
+        <script src="script/app.js"></script>
+        <script src="script/directives/angular-fixed-header-table.js"></script>
+        <script src="script/directives/fixed-table-header.js"></script>
+        <script src="script/directives/blink.js"></script>
+        <script src="script/directives/compack-table.js"></script>
+        <script src="script/controllers/login-ctrl.js"></script>
+    </body>
+</html>

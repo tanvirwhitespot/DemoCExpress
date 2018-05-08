@@ -1,0 +1,149 @@
+/*CSS Goes Here*/
+
+@import '_variables';
+@import '_custom-gutter';
+/*@import '_nav-bar';*/
+@import '_common';
+@import '_login';
+@import '_sweet-alert';
+@import '_modal';
+@import '_ng-print';
+
+/*@import '_ng-table';*/
+
+/*body{
+    padding: 0 10px;
+}*/
+/*https://stackoverflow.com/questions/28364881/how-can-i-modify-ui-bootstrap-dropdown-to-respond-to-a-mouse-hover-over-the-drop*/
+
+.main-view{
+    /*padding: 0 10px;*/
+    min-height: 95vh;
+    /*max-height: 96vh;*/
+}
+
+.common-footer{
+    background: $footer-bg;
+    padding-top: 10px;
+    height: $footer-height;
+    font-size: $footer-font-size;
+    font-weight: 300;
+    margin: 0;
+    /*opacity: 0.5;*/
+    height: 40px;
+    /*color: $footer-text-color;*/
+    color: white;
+    background: #069d52;
+}
+
+.navbar-nav{
+    li{
+        a{
+            font-size: $form-label-font-size;
+            /*font-weight: bold;*/
+        }
+    }
+}
+
+/*.navbar-nav > li > a, .navbar-brand {
+    padding-top: 8px !important;
+    padding-bottom:0 !important;
+    height: 35px;
+}
+
+.navbar {
+    min-height: 35px !important;
+}*/
+
+.pick{
+    /*font-size: 12px;*/
+    .btn-box > button{
+        margin-bottom: 10px;
+    }
+}
+
+/*.login{
+    input{
+        box-shadow: none;
+        text-align: center;
+        margin-bottom: 12px;
+    }
+    button{
+        width: 49%;
+        font-weight: bold;
+    }
+    h5{
+        margin-top: 0;
+        margin-bottom: 1px;
+    }
+    margin-top: 30vh;
+}*/
+
+.manage-user{
+    margin-top: 20vh;
+}
+
+.footer{
+    /*margin-top: 100vh;*/
+}
+
+/*.horizontal-collapse {
+    height: 70px;
+}
+.navbar-collapse.in {
+    overflow-y: hidden;
+}*/
+
+.user-access{
+    .fa-check{
+        cursor: pointer;
+        color: green;
+    }
+    .fa-times{
+        cursor: pointer;
+        color: red;
+    }
+
+    .accessTable > tbody > tr :nth-child(4),tr :nth-child(1){
+        text-align: center;
+    }
+
+    .accessTable{
+        tbody > tr > td{
+            vertical-align: middle;
+        }
+
+        /*        tr td:hover { 
+                    background: #d58512; 
+                }*/
+
+        td i { 
+            display: block; 
+        }
+    }
+}
+
+.form-submit{
+
+    span{
+        min-width: 110px;
+        text-align: left;
+        font-weight: bold;
+    }
+    input{
+        text-align: left;
+        /*color: red !important;*/
+    }
+
+    /*    input[readonly]{
+            background-color: #f9f9f9;
+        } */
+
+    /*    input[text="1711804845"]{
+            color: red;
+        }*/
+
+    .input-group{
+        margin-bottom: 10px;
+    }
+}

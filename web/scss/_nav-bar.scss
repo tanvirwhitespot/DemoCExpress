@@ -1,0 +1,22 @@
+/* 
+    Created on : May 3, 2018, 11:56:58 AM
+    Author     : gsalim
+*/
+
+.header__nav--links li {
+    border-right: 1px solid #ccc;
+    color: #666;
+    cursor: pointer;
+    float: left;
+    font-family: ff-oxide-solid-web,OxideSolidOT,oxidesolidot-webfont,HelveticaNeue-Bold,"Helvetica Neue Bold","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+    font-size: 8px;
+    letter-spacing: .08em;
+    line-height: 30px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    text-transform: uppercase;
+    vertical-align: middle;
+    width: -webkit-calc(100% / 7);
+    width: calc(100% / 7);
+}

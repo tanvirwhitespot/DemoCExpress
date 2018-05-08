@@ -1,0 +1,19 @@
+<div class="modal-header">
+    <blink><h4 class="modal-title text-center">{{confirmMsg}}</h4></blink>
+</div>
+
+<div class="modal-body">
+    <div class="input-group">
+        <span class="input-group-addon align-padding">Choose</span>
+        <select class="form-control center-dropdown" ng-model="choice" ng-change="changeChoice()">
+            <option selected>Delivered</option>
+            <option class="text-center">Rejected</option>
+        </select>
+        <input class="form-control text-center" placeholder="Comments" ng-disabled="opRej" ng-model="comments">
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">Ok</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>

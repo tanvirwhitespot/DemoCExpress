@@ -1,0 +1,157 @@
+<!--<please-wait message="{{LoadingMessage}}" ></please-wait>-->
+
+<p class="page-bar text-center">{{header}}</p>
+<div ng-if="loading" class="row">
+    <p class="msg-paragraph-emb text-center">Loading...</p>
+</div>
+<div ng-if="!loading" class="input-form">
+    <!--Left Side-->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row gutter-05">
+                <!--All User ID's-->
+                <div class="row gutter-05">
+                    <p class="msg-paragraph-emb">All User ID's</p>
+                    <div class="col-sm-6 col-xs-12 remove-both-margin margine-top5">
+                        <div class="input-group">
+                            <span class="input-group-addon align-padding">All User ID's</span>
+                            <select class="form-control remove-left-border" ng-model="$parent.id" ng-change ='changeId(id)'
+                                    ng-options="v.NAME for v in ids track by v.ID"></select>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default align-padding" type="button" ng-click="reloadUserIds()">
+                                    <i class="fa fa-refresh"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-xs-6 remove-both-margin margine-top5">
+                        <div class="input-group">
+                            <span class="input-group-addon align-padding">ID</span>
+                            <input class="form-control text-center" readonly="true" placeholder="0" ng-model="$parent.code">
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-xs-6 remove-both-margin margine-top5">
+                        <input class="form-control text-center" readonly="true" placeholder="USER DETAIL INFO" ng-model="$parent.userInfo">
+                    </div>
+                </div>
+                <!--All User Access-->
+                <div class="row gutter-05">
+                    <div class="scrollable">
+                        <table class="table table-bordered table-hover center-align-column" fixed-header table-height="200px">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>MENU</th>
+                                    <th>SUB MENU</th>
+                                    <th>MENU ID</th>
+                                    <th>ASSIGN</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="record in accesses">
+                                    <!--<td><input type="checkbox" ng-checked={{record.STATUS}} ng-click="toggleSelection(record)" /></td>-->
+                                    <td>{{$index + 1}}</td>
+                                    <td>{{record.MENU}}</td>
+                                    <td>{{record.MENU_ITEM}}</td>
+                                    <td>{{record.ITEM_ID}}</td>
+                                    <!--<td><button class="btn btn-success" ng-click="addAccess(record.SUB_MENU_ID, $index)">Add</button></td>-->
+                                    <td><i class="fa fa-check-circle" aria-hidden="true" ng-click="addAccess(record.ITEM_ID)"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row gutter-05">
+                <p class="msg-paragraph-emb">Create Menu</p>
+                <div class="col-sm-8 col-xs-12 margine-top5">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding">Name</span>
+                        <input class="form-control text-center" placeholder="Menu Name" ng-model="$parent.menuName">
+                        <span class="input-group-addon align-padding">On Click</span>
+                        <input class="form-control text-center" placeholder="On Click Action" ng-model="$parent.menuOnClick">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default align-padding" type="button" ng-click="createMenu()">
+                                <i class="fa fa-plus"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-12 margine-top5">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding">List</span>
+                        <select class="form-control remove-left-border center-dropdown" ng-model="menu" ng-change ='changeMenu(menu)'
+                                ng-options="v.NAME for v in menues track by v.ID"></select>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default align-padding" type="button" ng-click="reloadMenues()">
+                                <i class="fa fa-refresh"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row gutter-05 margine-top5">
+                <p class="msg-paragraph-emb">Create Menu Item</p>
+                <div class="col-sm-8 col-xs-12 margine-top5">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding">Name</span>
+                        <input class="form-control text-center" placeholder="Menu Item Name" ng-model="$parent.mitemName">
+                        <span class="input-group-addon align-padding">On Click</span>
+                        <input class="form-control text-center" placeholder="On Click Action" ng-model="$parent.mitemOnClick">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default align-padding" type="button" ng-click="createMenuItem()">
+                                <i class="fa fa-plus"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-12 margine-top5">
+                    <div class="input-group">
+                        <span class="input-group-addon align-padding">Menu</span>
+                        <input class="form-control text-center" readonly="true" placeholder="MENU" ng-model="$parent.menuId">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Right Side-->
+        <div class="col-md-6">
+            <div class="row gutter-05">
+                <!--Assigned Access-->
+                <div class="row gutter-05">
+                    <p class="msg-paragraph-emb">Assigned Access</p>
+                    <div class="form-group col-sm-12 col-xs-12 remove-both-margin margine-top5 margine-bottom0">
+                        <input class="form-control text-center" readonly="true" placeholder="User ID" ng-model="profileId">
+                    </div>
+                </div>
+                <!--Assigned Access Table-->
+                <div class="row gutter-05">
+                    <div class="scrollable">
+                        <table class="table table-bordered table-hover center-align-column" fixed-header table-height="200px">
+                            <thead>
+                                <tr>
+                                    <th><i class="fa fa-times" ng-click="removeAll()"></i></th>
+                                    <th>SL</th>
+                                    <th>MENU</th>
+                                    <th>SUB MENU</th>
+                                    <th>MENU ID</th>
+                                    <th>ASSIGN BY</th>
+                                    <th>ASSIGN DATE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="record in assignAccesses">
+                                    <td><i class="fa fa-times" aria-hidden="true" ng-click="removeAccess(record.ITEM_ID)"></i></td>
+                                    <!--<td><input type="checkbox" ng-checked={{record.STATUS}} ng-click="toggleSelection(record)" /></td>-->
+                                    <td>{{$index + 1}}</td>
+                                    <td>{{record.MENU}}</td>
+                                    <td>{{record.MENU_ITEM}}</td>
+                                    <td>{{record.ITEM_ID}}</td>
+                                    <td>{{record.ASSIGN_BY}}</td>
+                                    <td>{{record.ASSIGN_DATE}}</td>
+                                    <!--<td><button class="btn btn-success" ng-click="addAccess(record.SUB_MENU_ID, $index)">Add</button></td>-->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
