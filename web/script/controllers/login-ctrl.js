@@ -23,4 +23,5 @@ angular.module('app').controller('LoginCtrl', function ($scope, $state) {
         $scope.busy = false;
         $scope.loginMsg = "PLEASE WAIT FOR SERVER";
     });
+    
 });
